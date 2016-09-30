@@ -22,4 +22,23 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->view('welcome_message');
 	}
+        
+        public function __construct() {
+            parent::__construct();
+        }
+
+
+        public function search()
+        {
+            $search_value = $this->input->post('search');
+            $data = array('data'=>'','msg'=>'','status'=>'');
+            if(!empty ($search_value)){
+                $query_data = array('company_name'=>$search_value);
+                $this->load->model('vendors');
+                $result = $this->vendors->getVendors($query_data);
+                $data = array('data'=>$result,'msg'=>'','status'=>'');
+                
+            }
+            $this->load->view('search',$data);
+	}
 }

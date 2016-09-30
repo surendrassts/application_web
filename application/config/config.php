@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = '';
+$config['base_url'] = 'http://localhost/docsapp/index.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +35,7 @@ $config['base_url'] = '';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -63,8 +63,6 @@ $config['uri_protocol']	= 'REQUEST_URI';
 | For more information please see the user guide:
 |
 | https://codeigniter.com/user_guide/general/urls.html
-|
-| Note: This option is ignored for CLI requests.
 */
 $config['url_suffix'] = '';
 
@@ -158,8 +156,6 @@ $config['composer_autoload'] = FALSE;
 | and it will be executed as: ! preg_match('/^[<permitted_uri_chars>]+$/i
 |
 | DO NOT CHANGE THIS UNLESS YOU FULLY UNDERSTAND THE REPERCUSSIONS!!
-|
-| Note: This option is ignored for CLI requests.
 |
 */
 $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';

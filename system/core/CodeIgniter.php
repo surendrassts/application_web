@@ -55,7 +55,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @var	string
  *
  */
-	define('CI_VERSION', '3.2.0-dev');
+	define('CI_VERSION', '3.1.0');
 
 /*
  * ------------------------------------------------------
@@ -298,7 +298,7 @@ if ( ! is_php('5.4'))
  *  Instantiate the URI class
  * ------------------------------------------------------
  */
-	$URI =& load_class('URI', 'core', $CFG);
+	$URI =& load_class('URI', 'core');
 
 /*
  * ------------------------------------------------------
@@ -416,7 +416,11 @@ if ( ! is_php('5.4'))
 			$params = array($method, array_slice($URI->rsegments, 2));
 			$method = '_remap';
 		}
-		elseif ( ! is_callable(array($class, $method)))
+		// WARNING: It appears that there are issues with is_callable() even in PHP 5.2!
+		// Furthermore, there are bug reports and feature/change requests related to it
+		// that make it unreliable to use in this context. Please, DO NOT change this
+		// work-around until a better alternative is available.
+		elseif ( ! in_array(strtolower($method), array_map('strtolower', get_class_methods($class)), TRUE))
 		{
 			$e404 = TRUE;
 		}

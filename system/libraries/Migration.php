@@ -288,7 +288,10 @@ class CI_Migration {
 				$this->_error_string = sprintf($this->lang->line('migration_class_doesnt_exist'), $class);
 				return FALSE;
 			}
-			elseif ( ! is_callable(array($class, $method)))
+			// method_exists() returns true for non-public methods,
+			// while is_callable() can't be used without instantiating.
+			// Only get_class_methods() satisfies both conditions.
+			elseif ( ! in_array($method, array_map('strtolower', get_class_methods($class))))
 			{
 				$this->_error_string = sprintf($this->lang->line('migration_missing_'.$method.'_method'), $class);
 				return FALSE;
