@@ -16,8 +16,12 @@ class Bbanks extends CI_Model{
         }
     }
     
-    function getAllBloodbanks(){
-        $query = $this->db->query("select *,eb.name as eb_branch,eb.status as eb_status from entities e join entity_branches eb on e.id=eb.entity_id join entity_types et on e.entity_type=et.id where et.id=2");
+    function getAllBloodbanks($search_data){
+        if(!empty ($search_data['k_search'])){
+            $query = $this->db->query("select *,eb.name as eb_branch,eb.status as eb_status from entities e join entity_branches eb on e.id=eb.entity_id join entity_types et on e.entity_type=et.id where et.id=2 and (e.name like '%".$search_data['k_search']."%' or e.description like '%".$search_data['k_search']."%')");
+        }  else {
+            $query = $this->db->query("select *,eb.name as eb_branch,eb.status as eb_status from entities e join entity_branches eb on e.id=eb.entity_id join entity_types et on e.entity_type=et.id where et.id=2");    
+        }        
         $data = $query->result();
         return $data;
     }   

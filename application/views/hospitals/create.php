@@ -107,27 +107,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <li><a href="">Profile</a></li>                    
                 </ul>
             </div><div  style="width:80%;float: left;">Content
-                <form name="k_search_f" id="k_search_f" method="post"><input type="text" name="k_search" id="k_search" value="<?php echo $k_search; ?>"/><input type="submit" name="k_s_submit" id="k_s_submit" value="Submit"/><input type="submit" name="k_c_submit" id="k_c_submit" value="Clear"/></form>
-            <table>
-              <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Status</th>
-              </tr>
-              <?php foreach($data as $row){
-              ?>
-              <tr>
-                <td><?php echo $row->first_name;?></td>
-                <td><?php echo $row->last_name;?></td>
-                <td><?php echo $row->user_email;?></td>
-                <td><?php if($row->user_status==1){echo "Active";}elseif ($row->user_status==0) {
-                    echo "Blocked";}?>
-                </td>
-              </tr>
-              <?php
-              }?>              
-            </table>
+                <form name="hospital_create" id="hospital_create" method="post">
+                    Name:<input type="text" name="hospital_name" id="hospital_name"/><br/>
+                    Description:<input type="text" name="hospital_description" id="hospital_description"/><br/>
+                    Status:<select name="hospital_status" id="hospital_status">
+                        <option value="0">Block</option>
+                        <option value="1">Active</option>                        
+                    </select><br/>
+                    <input type="submit" name="submit" value="Submit"/>
+                </form>
             </div>
             <div style="clear: both"></div>
 	</div>

@@ -32,8 +32,26 @@ class Hospital extends CI_Controller {
             $this->load->helper('url');
             $url_data['page_name'] = $this->uri->segment(2);
             $this->load->model('hospitals');
+            $search_data = array();
+            $search_data['k_search'] = '';
+            if($this->input->post('k_search')){
+                $search_data['k_search'] = $this->input->post('k_search');
+            }
+            if($this->input->post('k_c_submit')){
+                $search_data['k_search'] = '';
+            }
+            
+            $result = $this->hospitals->getAllHospitals($search_data);
+            $data = array('data'=>$result,'k_search'=>$search_data['k_search']);
+            $this->load->view('hospitals/details',$data);
+        }
+        
+        public function create() {            
+            $this->load->helper('url');
+            $url_data['page_name'] = $this->uri->segment(2);
+            $this->load->model('hospitals');
             $result = $this->hospitals->getAllHospitals();
             $data = array('data'=>$result);
-            $this->load->view('hospitals/details',$data);
+            $this->load->view('hospitals/create',$data);
         }
 }

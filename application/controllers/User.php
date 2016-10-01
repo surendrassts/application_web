@@ -111,8 +111,16 @@ class User extends CI_Controller {
             $this->load->helper('url');
             $url_data['page_name'] = $this->uri->segment(2);
             $this->load->model('users');
-            $result = $this->users->getAllUsers();
-            $data = array('data'=>$result);
+            $search_data = array();
+            $search_data['k_search'] = '';
+            if($this->input->post('k_search')){
+                $search_data['k_search'] = $this->input->post('k_search');
+            }
+            if($this->input->post('k_c_submit')){
+                $search_data['k_search'] = '';
+            }
+            $result = $this->users->getAllUsers($search_data);
+            $data = array('data'=>$result,'k_search'=>$search_data['k_search']);
             $this->load->view('users/details',$data);
         }
 }

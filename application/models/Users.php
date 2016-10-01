@@ -64,8 +64,12 @@ class Users extends CI_Model{
         }
     }
     
-    function getAllUsers(){
-        $query = $this->db->query("select * from users");
+    function getAllUsers($search_data){
+        if(!empty ($search_data['k_search'])){
+            $query = $this->db->query("select * from users where (first_name like '%".$search_data['k_search']."%' or last_name like '%".$search_data['k_search']."%'  or user_email like '%".$search_data['k_search']."%')");
+        }  else {
+            $query = $this->db->query("select * from users");    
+        }
         $result = $query->result();
         return $result;
     }

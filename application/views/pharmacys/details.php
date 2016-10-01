@@ -107,21 +107,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <li><a href="">Profile</a></li>                    
                 </ul>
             </div><div  style="width:80%;float: left;">Content
-                <form name="k_search_f" id="k_search_f" method="post"><input type="text" name="k_search" id="k_search" value="<?php echo $k_search; ?>"/><input type="submit" name="k_s_submit" id="k_s_submit" value="Submit"/><input type="submit" name="k_c_submit" id="k_c_submit" value="Clear"/></form>
             <table>
               <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
+                <th>Hospital Name</th>
+                <th>Branch</th>
+                <th>City</th>
                 <th>Status</th>
               </tr>
-              <?php foreach($data as $row){
+              <?php 
+              foreach($data as $row){
               ?>
               <tr>
-                <td><?php echo $row->first_name;?></td>
-                <td><?php echo $row->last_name;?></td>
-                <td><?php echo $row->user_email;?></td>
-                <td><?php if($row->user_status==1){echo "Active";}elseif ($row->user_status==0) {
+                <td><?php echo $row->name;?></td>
+                <td><?php echo $row->eb_branch;?></td>
+                <td><?php echo $row->city;?></td>
+                <td><?php if($row->eb_status==1){echo "Active";}elseif ($row->eb_status==0) {
                     echo "Blocked";}?>
                 </td>
               </tr>
