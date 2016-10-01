@@ -63,6 +63,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		border: 1px solid #D0D0D0;
 		box-shadow: 0 0 8px #D0D0D0;
 	}
+       table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
 	</style>
 </head>
 <body>
@@ -79,7 +94,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <li><a href="<?php echo base_url();?>pharmacy/details">Pharmacy</a></li>
                     <li><a href="">Profile</a></li>                    
                 </ul>
-            </div><div  style="width:80%;float: left;">Content</div>
+            </div><div  style="width:80%;float: left;">Content
+            <table>
+              <tr>
+                <th>Hospital Name</th>
+                <th>Branch</th>
+                <th>City</th>
+                <th>Status</th>
+              </tr>
+              <?php 
+              foreach($data as $row){
+              ?>
+              <tr>
+                <td><?php echo $row->name;?></td>
+                <td><?php echo $row->eb_branch;?></td>
+                <td><?php echo $row->city;?></td>
+                <td><?php if($row->eb_status==1){echo "Active";}elseif ($row->eb_status==0) {
+                    echo "Blocked";}?>
+                </td>
+              </tr>
+              <?php
+              }?>              
+            </table>
+            </div>
             <div style="clear: both"></div>
 	</div>
 

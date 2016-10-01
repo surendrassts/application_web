@@ -63,6 +63,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		border: 1px solid #D0D0D0;
 		box-shadow: 0 0 8px #D0D0D0;
 	}
+       table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
 	</style>
 </head>
 <body>
@@ -75,11 +90,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <ul style="list-style: none;">
                     <li><a href="<?php echo base_url();?>user/details">Users</a></li>
                     <li><a href="<?php echo base_url();?>hospital/details">Hospitals</a></li>
-                    <li><a href="<?php echo base_url();?>bbank/details">Blood Banks</a></li>
-                    <li><a href="<?php echo base_url();?>pharmacy/details">Pharmacy</a></li>
+                    <li><a href="<?php echo base_url();?>bbanks/details">Blood Banks</a></li>
+                    <li><a href="<?php echo base_url();?>pharmacys/details">Pharmacy</a></li>
                     <li><a href="">Profile</a></li>                    
                 </ul>
-            </div><div  style="width:80%;float: left;">Content</div>
+            </div><div  style="width:80%;float: left;">Content
+            <table>
+              <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Status</th>
+              </tr>
+              <?php foreach($data as $row){
+              ?>
+              <tr>
+                <td><?php echo $row->first_name;?></td>
+                <td><?php echo $row->last_name;?></td>
+                <td><?php echo $row->user_email;?></td>
+                <td><?php if($row->user_status==1){echo "Active";}elseif ($row->user_status==0) {
+                    echo "Blocked";}?>
+                </td>
+              </tr>
+              <?php
+              }?>              
+            </table>
+            </div>
             <div style="clear: both"></div>
 	</div>
 

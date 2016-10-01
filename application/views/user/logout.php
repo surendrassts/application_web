@@ -68,7 +68,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 
 <div id="container">
-	<h1>Welcome to Loan Management System</h1>
+	<h1>Welcome to Doctor App Admin module</h1>
 
 	<div id="body">
                 <a href="<?php echo base_url();?>user/login">Click here</a>to login           

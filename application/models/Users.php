@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Admin extends CI_Model{
+class Users extends CI_Model{
 	
     function __construct(){
         parent::__construct();
@@ -23,10 +23,11 @@ class Admin extends CI_Model{
     }
     
     function Authenticate($data){
-        $query = $this->db->query("select * from users where username='".$data['username']."' or email='".$data['username']."'");
+        $query = $this->db->query("select * from users u join user_roles ur on ur.user_id=u.user_id where u.user_email='".$data['email']."' and ur.role_id=2");
+        echo "select * from users u join user_roles ur on ur.user_id=u.user_id where u.user_email='".$data['email']."' and ur.role_id=2";
         $result = $query->result();
         foreach ($result as $row){
-            if($row->password == md5($data['password'])){
+            if($row->user_password == md5($data['password'])){
                 return $row;
             }  else {
                 return false;
@@ -54,7 +55,7 @@ class Admin extends CI_Model{
     }
     
     function getUserDetails($data){
-        $query = $this->db->query("select * from users where username='".$data['username']."' or email='".$data['email']."'");
+        $query = $this->db->query("select * from users where user_email='".$data['email']."'");
         $result = $query->result();
         if(!empty ($result[0])){
             return $result[0];
@@ -63,6 +64,11 @@ class Admin extends CI_Model{
         }
     }
     
+    function getAllUsers(){
+        $query = $this->db->query("select * from users");
+        $result = $query->result();
+        return $result;
+    }
     
 }
 

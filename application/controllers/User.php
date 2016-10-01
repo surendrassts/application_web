@@ -33,14 +33,15 @@ class User extends CI_Controller {
                 redirect('user/dashboard');
             }
             $data = array('msg'=>'','status'=>'','data'=>'');
-            if($this->input->post('username') && $this->input->post('password')){
+            if($this->input->post('email') && $this->input->post('password')){
                 $this->load->model('users');
                 $queryData;
-                $queryData['username'] = $this->input->post('username');
+                $queryData['email'] = $this->input->post('email');
                 $queryData['password'] = $this->input->post('password');
                 $returnValue = $this->users->Authenticate($queryData);
+                print_r($returnValue);
                 if($returnValue){
-                    if($returnValue->status==1){
+                    if($returnValue->user_status==1){
                         @session_start();
                         $_SESSION['user'] = $returnValue;
                         redirect('user/dashboard');
@@ -50,9 +51,9 @@ class User extends CI_Controller {
                 }else{
                     $data = array('msg'=>'Please enter valid email and password.','status'=>'','data'=>'');
                 }
-                if($this->input->post('username')=='admin' && $this->input->post('password')=='test@123'){
+                /*if($this->input->post('username')=='admin' && $this->input->post('password')=='test@123'){
                     
-                }
+                }*/
             }
             $this->load->view('user/login',$data);
         }
@@ -104,5 +105,14 @@ class User extends CI_Controller {
                 }
             }
             $this->load->view('user/registration',$data);
+        }
+        
+        public function details() {            
+            $this->load->helper('url');
+            $url_data['page_name'] = $this->uri->segment(2);
+            $this->load->model('users');
+            $result = $this->users->getAllUsers();
+            $data = array('data'=>$result);
+            $this->load->view('users/details',$data);
         }
 }
