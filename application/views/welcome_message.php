@@ -1,8 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-?><!DOCTYPE html>
+?>
+
+
 <html lang="en">
 <head>
+    
+    
+    <script type="text/javascript" src="http://localhost/docsapp/js/simple_js.js"></script>
 	<meta charset="utf-8">
 	<title>Welcome to CodeIgniter</title>
 
