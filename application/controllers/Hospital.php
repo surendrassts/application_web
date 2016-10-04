@@ -39,8 +39,7 @@ class Hospital extends CI_Controller {
             }
             if($this->input->post('k_c_submit')){
                 $search_data['k_search'] = '';
-            }
-            
+            }            
             $result = $this->hospitals->getAllHospitals($search_data);
             $data = array('data'=>$result,'k_search'=>$search_data['k_search']);
             $this->load->view('hospitals/details',$data);
@@ -50,8 +49,21 @@ class Hospital extends CI_Controller {
             $this->load->helper('url');
             $url_data['page_name'] = $this->uri->segment(2);
             $this->load->model('hospitals');
-            $result = $this->hospitals->getAllHospitals();
-            $data = array('data'=>$result);
+            $data = array('data'=>'','msg'=>'','status'=>'');
+            try {
+            if($this->input->post('e_create_submit')){
+                $reqdata = $this->input->post();                
+                $reqdata['e_type'] = 1;
+                $result = $this->hospitals->createHospital($reqdata);
+                if($result){
+                    $data = array('data'=>$result,'msg'=>'Hospital added successfully','status'=>'success');
+                }  else {
+                    $data = array('data'=>$result,'msg'=>'There is an error in backend','status'=>'error');
+                }                
+            }
+            }  catch (Exception $e){
+                $data = array('data'=>$result,'msg'=>'There is an error in backend','status'=>'error');
+            }
             $this->load->view('hospitals/create',$data);
         }
 }

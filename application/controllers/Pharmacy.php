@@ -31,7 +31,7 @@ class Pharmacy extends CI_Controller {
         public function details() {            
             $this->load->helper('url');
             $url_data['page_name'] = $this->uri->segment(2);
-            $this->load->model('bbanks');
+            $this->load->model('pharmacys');
             $search_data = array();
             $search_data['k_search'] = '';
             if($this->input->post('k_search')){
@@ -40,8 +40,31 @@ class Pharmacy extends CI_Controller {
             if($this->input->post('k_c_submit')){
                 $search_data['k_search'] = '';
             }
-            $result = $this->bbanks->getAllBloodbanks($search_data);
+            $result = $this->pharmacys->getAllPharmacys($search_data);
             $data = array('data'=>$result,'k_search'=>$search_data['k_search']);
             $this->load->view('bbanks/details',$data);
+        }
+        
+        
+        public function create() {            
+            $this->load->helper('url');
+            $url_data['page_name'] = $this->uri->segment(2);
+            $this->load->model('pharmacys');
+            $data = array('data'=>'','msg'=>'','status'=>'');
+            try {
+            if($this->input->post('e_create_submit')){
+                $reqdata = $this->input->post();                
+                $reqdata['e_type'] = 3;
+                $result = $this->pharmacys->createPharmacy($reqdata);
+                if($result){
+                    $data = array('data'=>$result,'msg'=>'Pharmacys added successfully','status'=>'success');
+                }  else {
+                    $data = array('data'=>$result,'msg'=>'There is an error in backend','status'=>'error');
+                }                
+            }
+            }  catch (Exception $e){
+                $data = array('data'=>$result,'msg'=>'There is an error in backend','status'=>'error');
+            }
+            $this->load->view('pharmacys/create',$data);
         }
 }

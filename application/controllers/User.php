@@ -39,7 +39,6 @@ class User extends CI_Controller {
                 $queryData['email'] = $this->input->post('email');
                 $queryData['password'] = $this->input->post('password');
                 $returnValue = $this->users->Authenticate($queryData);
-                print_r($returnValue);
                 if($returnValue){
                     if($returnValue->user_status==1){
                         @session_start();

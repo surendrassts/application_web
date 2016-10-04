@@ -44,4 +44,26 @@ class Bbank extends CI_Controller {
             $data = array('data'=>$result,'k_search'=>$search_data['k_search']);
             $this->load->view('bbanks/details',$data);
         }
+        
+        public function create() {            
+            $this->load->helper('url');
+            $url_data['page_name'] = $this->uri->segment(2);
+            $this->load->model('bbanks');
+            $data = array('data'=>'','msg'=>'','status'=>'');
+            try {
+            if($this->input->post('e_create_submit')){
+                $reqdata = $this->input->post();                
+                $reqdata['e_type'] = 2;
+                $result = $this->bbanks->createBbank($reqdata);
+                if($result){
+                    $data = array('data'=>$result,'msg'=>'Blood bank added successfully','status'=>'success');
+                }  else {
+                    $data = array('data'=>$result,'msg'=>'There is an error in backend','status'=>'error');
+                }                
+            }
+            }  catch (Exception $e){
+                $data = array('data'=>$result,'msg'=>'There is an error in backend','status'=>'error');
+            }
+            $this->load->view('bbanks/create',$data);
+        }
 }
