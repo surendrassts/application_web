@@ -84,7 +84,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             padding: 8px;
         }
 	</style>
-         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
   <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>      
   <script src="//code.jquery.com/jquery-1.9.1.js"></script>
   <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
@@ -168,6 +167,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <li><a href="<?php echo base_url();?>pharmacy/details">Pharmacy</a>
                         <ul>
                             <li><a href="<?php echo base_url();?>pharmacy/create">Create</a></li>                            
+                        </ul>
+                    </li>
+                    <li><a href="<?php echo base_url();?>speciality/details">Specialities</a>
+                        <ul>
+                            <li><a href="<?php echo base_url();?>speciality/create">Create</a></li>                            
                         </ul>
                     </li>
                     <li><a href="">Profile</a></li>                    

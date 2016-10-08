@@ -108,16 +108,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <ul>
                             <li><a href="<?php echo base_url();?>speciality/create">Create</a></li>                            
                         </ul>
-                    </li>                    
+                    </li>
                     <li><a href="">Profile</a></li>                    
                 </ul>
             </div><div  style="width:80%;float: left;">Content
                 <form name="k_search_f" id="k_search_f" method="post"><input type="text" name="k_search" id="k_search" value="<?php echo $k_search; ?>"/><input type="submit" name="k_s_submit" id="k_s_submit" value="Submit"/><input type="submit" name="k_c_submit" id="k_c_submit" value="Clear"/></form>
             <table>
               <tr>
-                <th>Hospital Name</th>
-                <th>Branch</th>
-                <th>City</th>
+                <th>Speciality</th>
+                <th>Type</th>
                 <th>Status</th>
               </tr>
               <?php 
@@ -125,9 +124,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               ?>
               <tr>
                 <td><?php echo $row->name;?></td>
-                <td><?php echo $row->eb_branch;?></td>
-                <td><?php echo $row->city;?></td>
-                <td><?php if($row->eb_status==1){echo "Active";}elseif ($row->eb_status==0) {
+                <td><?php echo $row->entity_type;?></td>
+                <td><?php if($row->status==1){echo "Active";}elseif ($row->status==0) {
                     echo "Blocked";}?>
                 </td>
               </tr>

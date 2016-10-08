@@ -104,10 +104,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             e_loc_city: "required",
             e_loc_state: "required",
             e_loc_zipcode: "required",
-            e_loc_phone: "required",
+            e_loc_phone: {required: true,
+                          phoneIND: true},
+                     
+             
             e_poc_firstname: "required",
             e_poc_lastname: "required",
-            e_poc_mobile: "required",
+            e_poc_mobile: {required: true,
+                           number: true},
             e_poc_email: {
                 required: true,
                 email: true
@@ -124,7 +128,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             e_loc_city: "Please enter a valid city",
             e_loc_state: "Please enter a valid state",
             e_loc_zipcode: "Please enter zipcode",
-            e_loc_phone: "Please enter a valid phone",
+            e_loc_phone: "Please enter a valid phone number",
             e_poc_firstname: "Please enter firstname",
             e_poc_lastname: "Please enter lastname",
                       
@@ -167,32 +171,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <ul>
                             <li><a href="<?php echo base_url();?>speciality/create">Create</a></li>                            
                         </ul>
-                    </li>                    
+                    </li>
                     <li><a href="">Profile</a></li>                    
                 </ul>
             </div><div  style="width:80%;float: left;">Content
                 <div class="<?php echo $status;?>"><?php echo $msg;?></div>
                 <form name="e_create_form" id="e_create_form" method="post">
                     <table>
-                        <tr><td style="width:20%">Name:</td><td  style="width:80%"><input type="text" name="e_name" id="e_name"/></td></tr>
-                        <tr><td style="width:20%">Description:</td><td  style="width:80%"><textarea name="e_description" id="e_description"></textarea></td></tr>
+                        <tr><td style="width:20%">Speciality:</td><td  style="width:80%"><input type="text" name="e_name" id="e_name"/></td></tr>
+                        <tr><td style="width:20%">Related to:</td><td  style="width:80%">
+                        <select name="e_entity_type" id="e_entity_type">
+                        <?php foreach ($entity_types as $row) {?>
+                            <option value="<?php echo $row->id; ?>"><?php echo $row->entity_type; ?></option>
+                        <?php }?>
+                        </select></td>
+                        </tr>
                         <tr><td style="width:20%">Status:</td><td  style="width:80%"><select name="e_status" id="e_status">
                         <option value="0">Block</option>
                         <option value="1">Active</option>                        
-                    </select></td></tr>
-                        <tr><td style="width:20%">Website:</td><td  style="width:80%"><input type="text" name="e_website" id="e_website"/></td></tr>
-                        <tr><td style="width:20%">Location Details:</td><td  style="width:80%"></td></tr>
-                        <tr><td style="width:20%">Address line1:</td><td  style="width:80%"><input type="text" name="e_loc_addressline1" id="e_loc_addressline1"/></td></tr>
-                        <tr><td style="width:20%">Address line2:</td><td  style="width:80%"><input type="text" name="e_loc_addressline2" id="e_loc_addressline2"/></td></tr>
-                        <tr><td style="width:20%">City:</td><td  style="width:80%"><input type="text" name="e_loc_city" id="e_loc_city"/></td></tr>
-                        <tr><td style="width:20%">State:</td><td  style="width:80%"><input type="text" name="e_loc_state" id="e_loc_state"/></td></tr>
-                        <tr><td style="width:20%">Zip Code:</td><td  style="width:80%"><input type="text" name="e_loc_zipcode" id="e_loc_zipcode"/></td></tr>
-                        <tr><td style="width:20%">Phone:</td><td  style="width:80%"><input type="text" name="e_loc_phone" id="e_loc_phone"/></td></tr>
-                        <tr><td style="width:20%">Contact Person Details for This Location:</td><td  style="width:80%"></td></tr>
-                        <tr><td style="width:20%">First Name:</td><td  style="width:80%"><input type="text" name="e_poc_firstname" id="e_poc_firstname"/></td></tr>
-                        <tr><td style="width:20%">Last Name:</td><td  style="width:80%"><input type="text" name="e_poc_lastname" id="e_poc_lastname"/></td></tr>
-                        <tr><td style="width:20%">Email:</td><td  style="width:80%"><input type="text" name="e_poc_email" id="e_poc_email"/></td></tr>
-                        <tr><td style="width:20%">Mobile Number:</td><td  style="width:80%"><input type="text" name="e_poc_mobile" id="e_poc_mobile"/></td></tr>
+                        </select></td></tr>
                         <tr><td style="width:20%"></td><td  style="width:80%"><input type="submit" name="e_create_submit" value="Submit"/></td></tr>                        
                         </table>
                 </form>
