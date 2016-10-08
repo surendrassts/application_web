@@ -84,6 +84,65 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             padding: 8px;
         }
 	</style>
+        
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+  <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>      
+  <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+  
+  <!-- jQuery Form Validation code -->
+  <script>
+  
+  // When the browser is ready...
+  $(function() {
+  
+    // Setup form validation on the #register-form element
+    $("#e_create_form").validate({
+    
+        // Specify the validation rules
+        rules: {
+            e_name: "required",
+            e_description: "required",
+            e_status: "required",
+            e_loc_addressline1: "required",
+            e_loc_city: "required",
+            e_loc_state: "required",
+            e_loc_zipcode: "required",
+            e_loc_phone: "required",
+            e_poc_firstname: "required",
+            e_poc_lastname: "required",
+            e_poc_mobile: "required",
+            e_poc_email: {
+                required: true,
+                email: true
+            }
+            
+        },
+        
+        // Specify the validation error messages
+        messages: {
+             e_name: "Please enter a valid name",
+            e_description: "Please enter a valid description",
+            e_status: "Please select status",
+            e_loc_addressline1: "Please enter a valid address",
+            e_loc_city: "Please enter a valid city",
+            e_loc_state: "Please enter a valid state",
+            e_loc_zipcode: "Please enter zipcode",
+            e_loc_phone: "Please enter a valid phone",
+            e_poc_firstname: "Please enter firstname",
+            e_poc_lastname: "Please enter lastname",
+                      
+            e_poc_email: "Please enter a valid email address",
+            e_poc_mobile: "Please enter valid mobile"
+        },
+        
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
+
+  });
+</script>
 </head>
 <body>
 <div id="container">
@@ -118,7 +177,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tr><td style="width:20%">Description:</td><td  style="width:80%"><textarea name="e_description" id="e_description"></textarea></td></tr>
                         <tr><td style="width:20%">Status:</td><td  style="width:80%"><select name="e_status" id="e_status">
                         <option value="0">Block</option>
-                        <option value="1" selected>Active</option>                        
+                        <option value="1">Active</option>                        
                     </select></td></tr>
                         <tr><td style="width:20%">Website:</td><td  style="width:80%"><input type="text" name="e_website" id="e_website"/></td></tr>
                         <tr><td style="width:20%">Location Details:</td><td  style="width:80%"></td></tr>

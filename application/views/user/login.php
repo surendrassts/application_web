@@ -64,6 +64,55 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		box-shadow: 0 0 8px #D0D0D0;
 	}
 	</style>
+        
+         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+  <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+  
+  <link href="runnable.css" rel="stylesheet" />
+  <!-- Load jQuery and the validate plugin -->
+  <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+  
+  <!-- jQuery Form Validation code -->
+  <script>
+  
+  // When the browser is ready...
+  $(function() {
+  
+    // Setup form validation on the #register-form element
+    $("#login-form").validate({
+      
+        // Specify the validation rules
+        rules: {
+                email: {
+                required: true,
+                email: true
+            },
+            password: {
+                required: true,
+                minlength: 5
+            }
+        },
+        
+        // Specify the validation error messages
+        messages: {
+           
+            email: "Please enter a valid email address",
+            password: {
+                required: "Please provide a password",
+                minlength: "Your password must be at least 5 characters long"
+            }
+            
+            
+        },
+        
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
+
+  });
+</script>
 </head>
 <body>
 
@@ -72,7 +121,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	<div id="body">
             <?php echo $msg;?>
-            <form name="login" method="post" id="login" >
+            <form name="login" method="post" id="login-form" >
                 <label>Email:</label><input type="text" name="email"/><b/>
                 <label>Password:</label><input type="password" name="password"/><br/>
                 <input type="submit" name="submit" id="submit" value="Login"/>
