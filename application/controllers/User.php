@@ -122,4 +122,21 @@ class User extends CI_Controller {
             $data = array('data'=>$result,'k_search'=>$search_data['k_search']);
             $this->load->view('users/details',$data);
         }
+
+        public function create() {
+            $this->load->model('users');
+            $data = array('data'=>'','msg'=>'','status'=>'');
+            if($this->input->post('e_create_submit')){
+                $reqdata = $this->input->post();
+                $reqdata['e_role'] = array($this->input->post('e_role'),$this->config->item('default_role'));
+                print_r($reqdata['e_role']);
+                $result = $this->users->createUser($reqdata);
+                if($result){
+                    echo $result;
+                }
+            }
+            $non_entity_roles = $this->users->getNonEntityRoles();
+            $data['non_entity_roles'] = $non_entity_roles;
+            $this->load->view('users/create',$data);
+        }
 }

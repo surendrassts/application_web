@@ -44,6 +44,14 @@ class Specialities extends CI_Model{
         return $result;
     }
     
+    function get_entity_specialities_services($entity_type){
+        $result = array();
+        $query = $this->db->query("select * from specializations_and_services where status=1 and entity_type='".$entity_type."'");
+        if($query){
+            $result = $query->result();
+        }
+        return $result;
+    }
 }
 
 ?>
