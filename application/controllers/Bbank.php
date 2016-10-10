@@ -64,6 +64,16 @@ class Bbank extends CI_Controller {
             }  catch (Exception $e){
                 $data = array('data'=>$result,'msg'=>'There is an error in backend','status'=>'error');
             }
+            
+             $result = $this->bbanks->getSpecialisation();
+            
+           
+            
+           
+           
+            //$data = array_merge($result,$data);
+           
+            $data['spe_types'] = $result;
             $this->load->view('bbanks/create',$data);
         }
 }

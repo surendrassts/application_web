@@ -98,6 +98,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         // Specify the validation rules
         rules: {
             e_name: "required",
+            'e_spe[]': "required",
             e_description: "required",
             e_status: "required",
             e_loc_addressline1: "required",
@@ -122,6 +123,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         // Specify the validation error messages
         messages: {
              e_name: "Please enter a valid name",
+             'e_spe[]': "Please select atleast one specialization",
             e_description: "Please enter a valid description",
             e_status: "Please select status",
             e_loc_addressline1: "Please enter a valid address",
@@ -145,10 +147,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </script>
 </head>
 <body>
+          
 <div id="container">
     <div><h1>Welcome to Doctor App Admin module</h1>
         <div style="text-align:right;">Welcome <?php echo $_SESSION['user']->user_email;?> | <a href="<?php echo base_url();?>user/logout">Logout</a></div></div>
-	<div id="body">
+          
+        <div id="body">
             <div style="width:20%;float: left;">Menu
                 <ul style="list-style: none;">
                     <li><a href="<?php echo base_url();?>user/details">Users</a></li>
@@ -175,10 +179,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <li><a href="">Profile</a></li>                    
                 </ul>
             </div><div  style="width:80%;float: left;">Content
-                <div class="<?php echo $status;?>"><?php echo $msg;?></div>
+                <div class="<?php echo $status;?>"><?php echo $msg; ?></div>
                 <form name="e_create_form" id="e_create_form" method="post">
                     <table>
                         <tr><td style="width:20%">Name:</td><td  style="width:80%"><input type="text" name="e_name" id="e_name"/></td></tr>
+                                
+                         <tr><td style="width:20%">Select Specislisation:</td>
+                                    
+                                    <td  style="width:80%">
+                                        <select name="e_spe[]" id="spe" multiple>
+                                            <option value="">Select Specialization's.. </option>
+                                    <?php foreach ($spe_types as $spe){?>   
+                                            <option value="<?php echo $spe->id; ?>"><?php echo $spe->name; ?></option>
+                                        
+                                        
+                                    <?php } ?>
+                                            </select>* Note. Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.
+                            </td></td></tr>
                         <tr><td style="width:20%">Description:</td><td  style="width:80%"><textarea name="e_description" id="e_description"></textarea></td></tr>
                         <tr><td style="width:20%">Status:</td><td  style="width:80%"><select name="e_status" id="e_status">
                         <option value="">Choose Status...</option>
@@ -200,6 +217,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tr><td style="width:20%">Mobile Number:</td><td  style="width:80%"><input type="text" name="e_poc_mobile" id="e_poc_mobile"/></td></tr>
                         <tr><td style="width:20%"></td><td  style="width:80%"><input type="submit" name="e_create_submit" value="Submit"/></td></tr>                        
                         </table>
+                    
+                  
                 </form>
             </div>
             <div style="clear: both"></div>

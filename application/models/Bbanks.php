@@ -32,6 +32,18 @@ class Bbanks extends CI_Model{
         return $result;
     }
     
+     function getSpecialisation(){
+        
+          $query = $this->db->query("select * from specializations_and_services where entity_type = 2");
+                    
+          $result = $query->result();
+          return $result;
+        
+       
+        
+    }
+    
+    
     function createBbank($reqdata){
         $this->db->trans_start();
         $result = FALSE;
@@ -42,6 +54,17 @@ class Bbanks extends CI_Model{
                 $result = $this->db->insert_id();
                 $this->db->trans_complete();
             }
+            
+           foreach ($reqdata['e_spe'] as $e_spe){  
+                
+                echo $e_spe;
+                
+          $query = $this->db->query("insert into entity_specializations(entity_id,specialization_id,entity_type) values ('1','$e_spe','".$reqdata['e_type']."')");
+                       
+            
+            }
+            
+            
         }
         return $result;
     }    

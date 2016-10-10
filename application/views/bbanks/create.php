@@ -98,6 +98,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         // Specify the validation rules
         rules: {
             e_name: "required",
+            "e_spe[]": "required",
             e_description: "required",
             e_status: "required",
             e_loc_addressline1: "required",
@@ -118,6 +119,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         // Specify the validation error messages
         messages: {
              e_name: "Please enter a valid name",
+             "e_spe[]": "Please select atleast one specialisation",
             e_description: "Please enter a valid description",
             e_status: "Please select status",
             e_loc_addressline1: "Please enter a valid address",
@@ -175,6 +177,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <form name="e_create_form" id="e_create_form" method="post">
                     <table>
                         <tr><td style="width:20%">Name:</td><td  style="width:80%"><input type="text" name="e_name" id="e_name"/></td></tr>
+                          <tr><td style="width:20%">Select Specislisation:</td>
+                                    
+                                    <td  style="width:80%">
+                                        <select name="e_spe" id="e_spe" multiple>
+                                            <option value="">Select Specialization's.. </option>
+                                    <?php foreach ($spe_types as $spe){?>   
+                                            <option value="<?php echo $spe->id; ?>"><?php echo $spe->name; ?></option>
+                                        
+                                        
+                                    <?php } ?>
+                                            </select>* Note. Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.
+                            </td></td></tr>
                         <tr><td style="width:20%">Description:</td><td  style="width:80%"><textarea name="e_description" id="e_description"></textarea></td></tr>
                         <tr><td style="width:20%">Status:</td><td  style="width:80%"><select name="e_status" id="e_status">
                         <option value="0">Block</option>

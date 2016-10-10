@@ -121,6 +121,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <th>Status</th>
               </tr>
               <?php 
+                            
               foreach($data as $row){
               ?>
               <tr>

@@ -49,11 +49,14 @@ class Hospital extends CI_Controller {
             $this->load->helper('url');
             $url_data['page_name'] = $this->uri->segment(2);
             $this->load->model('hospitals');
+            
+            
             $data = array('data'=>'','msg'=>'','status'=>'');
             try {
             if($this->input->post('e_create_submit')){
                 $reqdata = $this->input->post();                
                 $reqdata['e_type'] = 1;
+                
                 $result = $this->hospitals->createHospital($reqdata);
                 if($result){
                     $data = array('data'=>$result,'msg'=>'Hospital added successfully','status'=>'success');
@@ -64,6 +67,17 @@ class Hospital extends CI_Controller {
             }  catch (Exception $e){
                 $data = array('data'=>$result,'msg'=>'There is an error in backend','status'=>'error');
             }
+            
+            $result = $this->hospitals->getSpecialisation();
+            
+           
+            
+           
+           
+            //$data = array_merge($result,$data);
+           
+            $data['spe_types'] = $result;
+            
             $this->load->view('hospitals/create',$data);
         }
 }
