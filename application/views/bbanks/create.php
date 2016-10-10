@@ -5,7 +5,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
 	<meta charset="utf-8">
 	<title>Welcome to CodeIgniter</title>
-
 	<style type="text/css">
 
 	::selection { background-color: #E13300; color: white; }
@@ -84,13 +83,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             padding: 8px;
         }
 	</style>
-  <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>      
-  <script src="//code.jquery.com/jquery-1.9.1.js"></script>
-  <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
-  <script>
-  
-  // When the browser is ready...
-  $(function() {
+ <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+ <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+ <script>
+   $(function() {
   
     // Setup form validation on the #register-form element
     $("#e_create_form").validate({
@@ -180,7 +176,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           <tr><td style="width:20%">Select Specislisation:</td>
                                     
                                     <td  style="width:80%">
-                                        <select name="e_spe" id="e_spe" multiple>
+                                        <select name="e_spe[]" id="e_spe" multiple>
                                             <option value="">Select Specialization's.. </option>
                                     <?php foreach ($spe_types as $spe){?>   
                                             <option value="<?php echo $spe->id; ?>"><?php echo $spe->name; ?></option>
