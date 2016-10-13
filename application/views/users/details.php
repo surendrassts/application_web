@@ -3,6 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  
 	<meta charset="utf-8">
 	<title>Welcome to CodeIgniter</title>
 
@@ -79,6 +81,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             background-color: #dddddd;
         }
 	</style>
+        
+        
+        
+
+            
+        
+    
+                     
+        
+        
+        
+        
+        
+        
 </head>
 <body>
 
@@ -116,7 +132,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <li><a href="">Profile</a></li>                    
                 </ul>
             </div><div  style="width:80%;float: left;">Content
-                <form name="k_search_f" id="k_search_f" method="post"><input type="text" name="k_search" id="k_search" value="<?php echo $k_search; ?>"/><input type="submit" name="k_s_submit" id="k_s_submit" value="Submit"/><input type="submit" name="k_c_submit" id="k_c_submit" value="Clear"/></form>
+                <form name="k_search_f" id="k_search_f" method="post">
+                    <input type="text" name="k_search" id="k_search" value="<?php echo $k_search; ?>"/>
+                    <input type="submit" name="k_s_submit" id="k_s_submit" value="Submit"/>
+                    <input type="submit" name="k_c_submit" id="k_c_submit" value="Clear"/></form>
             <table>
               <tr>
                 <th>First Name</th>
@@ -130,9 +149,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <td><?php echo $row->first_name;?></td>
                 <td><?php echo $row->last_name;?></td>
                 <td><?php echo $row->user_email;?></td>
-                <td><?php if($row->user_status==1){echo "Active";}elseif ($row->user_status==0) {
-                    echo "Blocked";}?>
-                </td>
+                 <td>
+              <a href="#"  id="<?php echo "status_".$row->user_id; ?>"><?php if($row->user_status == 1){echo "Active";}else{echo "Inactive";}?></a>
+              <script>
+                $('#status_<?php echo $row->user_id; ?>').click(function(){
+                    var id = $(this).attr('id').split("_")[1];
+                    var ele = $(this);
+                    var status = $(this).html();
+                    url = "<?php echo base_url().'user/update_status'?>";
+                    $.ajax({
+                      type:"POST",
+                      url: url,
+                      data: {"id":id,"status":status},
+                      success: function(data) {
+                        if(data == '0'){
+                            ele.html('Inactive');
+                        }
+                        if(data == '1'){
+                            ele.html('Active');
+                        }
+                      }
+                    });
+                });
+        </script>
+                 </td>
               </tr>
               <?php
               }?>              
