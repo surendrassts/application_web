@@ -116,10 +116,14 @@ class Users extends CI_Model{
                     $query_role = $this->db->query("insert into user_roles(user_id,role_id) values(".$result.",".$value.")");
                 }
             }
+            $query_entity = $this->db->query("insert into entities(entity_type,name,status,user_id,created_at,created_by,modified_at,modified_by) values('".$this->config->item('doctors_entity_type')."',".$this->db->escape($reqdata['e_firstname'].' '.$reqdata['e_lastname']).",".$this->db->escape($reqdata['e_status']).",".$this->db->escape($result).",now(),1,now(),1)");
+            if($query_entity){
+                $result_entity_id = $this->db->insert_id();
             foreach ($reqdata['e_service'] as $value) {
                 if($value){
-                    $query_service = $this->db->query("insert into entity_specializations(user_id,specialization_id,entity_type) values('".$result."','".$value."','".$this->config->item('doctors_entity_type')."')");
+                    $query_service = $this->db->query("insert into entity_specializations(entity_id,user_id,specialization_id,entity_type) values('".$result_entity_id."','".$result."','".$value."','".$this->config->item('doctors_entity_type')."')");
                 }
+            }
             }
             $query_address = $this->db->query("insert into user_address(user_id,user_add_line1,user_add_line2,user_city,user_state,user_zipcode,created_at,created_by,modified_at,modified_by) values(".$result.",".$this->db->escape($reqdata['e_loc_addressline1']).",".$this->db->escape($reqdata['e_loc_addressline2']).",".$this->db->escape($reqdata['e_loc_city']).",".$this->db->escape($reqdata['e_loc_state']).",".$this->db->escape($reqdata['e_loc_zipcode']).",now(),1,now(),1)");
             if($query_address){
