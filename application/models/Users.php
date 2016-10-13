@@ -110,7 +110,7 @@ class Users extends CI_Model{
         $this->db->trans_start();
         $query = $this->db->query("insert into users(first_name,last_name,user_email,user_password,user_mobile,user_status,is_email_verified,is_mobile_verified,blood_donation_status,blood_group) values(".$this->db->escape($reqdata['e_firstname']).",".$this->db->escape($reqdata['e_lastname']).",".$this->db->escape($reqdata['e_email']).",".$this->db->escape(md5($reqdata['e_password'])).",".$this->db->escape($reqdata['e_mobile']).",".$this->db->escape($reqdata['e_status']).",1,1,".$this->db->escape($reqdata['e_donation_status']).",".$this->db->escape($reqdata['e_blood_group']).")");
         if($query){
-            $result = $this->db->insert_id();
+            $result=$this->db->insert_id();
             foreach ($reqdata['e_role'] as $value) {
                 if($value){
                     $query_role = $this->db->query("insert into user_roles(user_id,role_id) values(".$result.",".$value.")");
