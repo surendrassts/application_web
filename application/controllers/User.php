@@ -139,4 +139,39 @@ class User extends CI_Controller {
             $data['non_entity_roles'] = $non_entity_roles;
             $this->load->view('users/create',$data);
         }
+        
+        
+        
+    public function update_status(){
+        
+    $this->load->model('users'); 
+    $status = $this->input->post('status');
+    
+    
+     if($status = 'Inactive'){
+        
+        $status = 1;
+        
+    }
+    
+    if($status = 'Active'){
+        
+       $status = 0; 
+       
+    }
+    
+   
+    
+   
+    
+    $course_id = $this->input->post('id');
+    $this->users->update_user_status($course_id,$status);
+}
+        
+        
+        
+        
+        
+        
+        
 }
