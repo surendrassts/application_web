@@ -150,59 +150,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <td><?php echo $row->last_name;?></td>
                 <td><?php echo $row->user_email;?></td>
                  <td>
-                     
-                    
-                    <script>
-        
-        $(document).on('click','#status<?php echo $row->user_id; ?>',function()
-                                                { 
-            
-           //var msg = (status=='0')? 'Activate' : 'Deactivate'; 
-          //if(confirm("Are you sure to "+ msg))
-        //{ 
-            var id = <?php echo $row->user_id; ?>;
-            var status = $('#status<?php echo $row->user_id; ?>').html();
-            
-            alert(status);
-            
-          
-                          
-            url = "<?php echo base_url().'user/update_status'?>"; 
-        $.ajax({
-          type:"POST",
-          url: url, 
-          data: {"id":id,"status":status}, 
-          success: function(data) { 
-           alert(data);
-           
-            if(data = 0){
-             $('#status<?php echo $row->user_id; ?>').html('Inactive'); 
-             
-         }
-         
-          if(data = 1){
-              
-              
-             $('#status<?php echo $row->user_id; ?>').html('Active');
-    
-         }
-        //location.reload();
-    } });
- //}  
- });           
-        
-        
+              <a href="#"  id="<?php echo "status_".$row->user_id; ?>"><?php if($row->user_status == 1){echo "Active";}else{echo "Inactive";}?></a>
+              <script>
+                $('#status_<?php echo $row->user_id; ?>').click(function(){
+                    var id = $(this).attr('id').split("_")[1];
+                    var ele = $(this);
+                    var status = $(this).html();
+                    url = "<?php echo base_url().'user/update_status'?>";
+                    $.ajax({
+                      type:"POST",
+                      url: url,
+                      data: {"id":id,"status":status},
+                      success: function(data) {
+                        if(data == '0'){
+                            ele.html('Inactive');
+                        }
+                        if(data == '1'){
+                            ele.html('Active');
+                        }
+                      }
+                    });
+                });
         </script>
-                 
-                     
-              <a href="#"  id="<?php echo "status".$row->user_id; ?>">
-                                   <?php if($row->user_status == 0){
-                                           echo "Active";
-                                           }else{
-                                               
-                                               echo "Inactive";
-                                               
-                                           }?>  </a>
                  </td>
               </tr>
               <?php

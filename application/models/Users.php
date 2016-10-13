@@ -158,23 +158,11 @@ class Users extends CI_Model{
   //ACTIVATE OR DEACTIVATE USER
     
   public function update_user_status($user_id,$status){
-      
-      
-          
-        
-      
-  $data['user_status'] = $status;
-  $this->db->where('user_id', $user_id);
-  $this->db->update('users',$data);
-   
- 
-  echo $status;
-  
+    $data['user_status'] = $status;
+    $this->db->where('user_id', $user_id);
+    $this->db->update('users',$data);
+    echo $status;
   }
    
-        }
-
-
-
-
+}
 ?>

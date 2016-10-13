@@ -146,24 +146,11 @@ class User extends CI_Controller {
         
     $this->load->model('users'); 
     $status = $this->input->post('status');
-    
-    
-     if($status = 'Inactive'){
-        
+    if($status == "Inactive"){
         $status = 1;
-        
+    }elseif($status == "Active"){
+       $status = 0;
     }
-    
-    if($status = 'Active'){
-        
-       $status = 0; 
-       
-    }
-    
-   
-    
-   
-    
     $course_id = $this->input->post('id');
     $this->users->update_user_status($course_id,$status);
 }
