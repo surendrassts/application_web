@@ -3,21 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Doctor extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/user_guide/general/urls.html
-	 */
+	   
 	public function index()
 	{
 		
@@ -28,7 +14,9 @@ class Doctor extends CI_Controller {
             @session_start();
         }
         
-        public function details() {            
+        public function details() { 
+            
+            
             $this->load->model('users');
             $search_data = array();
             $search_data['k_search'] = '';
@@ -43,12 +31,15 @@ class Doctor extends CI_Controller {
             $this->load->view('doctors/details',$data);
         }
         
-        public function create() {            
+        public function create() {     
+            
+            
             $this->load->model('users');
             $this->load->model('specialities');
-            $data = array('data'=>'','msg'=>'','status'=>'');            
+            $data = array('data'=>'','msg'=>'','status'=>'');
             if($this->input->post('e_create_submit')){
                 $reqdata = $this->input->post(); 
+              
                 $reqdata['e_role'] = array($this->input->post('e_role'),$this->config->item('default_role'));
                 $result = $this->users->createDoctor($reqdata);
                 if($result){
@@ -61,4 +52,20 @@ class Doctor extends CI_Controller {
             $data['entity_services'] = $entity_services;
             $this->load->view('doctors/create',$data);
         }
-}
+        
+        public function update_status(){
+            $this->load->model('users');
+            $status = $this->input->post('status');
+            if($status == "Inactive"){
+                $status = 1;
+                
+            }elseif($status == "Active"){
+                $status = 0;
+                
+            }
+            $user_id = $this->input->post('id');
+            $this->users->update_user_status($user_id,$status);
+            
+            }
+            
+            }

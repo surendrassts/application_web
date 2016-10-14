@@ -3,6 +3,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
+    <script type='text/javascript' src="http://localhost/docsapp/assets/js/common.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    
 	<meta charset="utf-8">
 	<title>Welcome to CodeIgniter</title>
 
@@ -126,9 +129,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <tr>
                 <td><?php echo $row->name;?></td>
                 <td><?php echo $row->eb_branch;?></td>
-                <td><?php echo $row->city;?></td>
-                <td><?php if($row->eb_status==1){echo "Active";}elseif ($row->eb_status==0) {
-                    echo "Blocked";}?>
+                <td><?php echo $row->eb_city;?></td>
+                <td><a href="#"  id="<?php echo "status_".$row->id; ?>"><?php if($row->eb_status == 1){echo "Active";}else{echo "Inactive";}?></a>
+              <script>
+                  $('#status_<?php echo $row->id; ?>').click(function(){
+                   var id = $(this).attr('id').split("_")[1];
+                   var ele = $(this);
+                   var status = $(this).html();
+                   url = "<?php echo base_url().'bbank/update_status'?>";
+                   US.UTIL.activedeactivate(url,id,status,ele);
+               });
+                             </script>
+                    
                 </td>
               </tr>
               <?php

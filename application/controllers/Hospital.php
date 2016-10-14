@@ -45,7 +45,11 @@ class Hospital extends CI_Controller {
             $this->load->view('hospitals/details',$data);
         }
         
-        public function create() {            
+        public function create() {
+            $config['upload_path']          = './uploads/';
+            $config['allowed_types']        = 'pdf';
+            $config['max_size']             = 100;
+            $this->load->library('upload', $config);
             $this->load->helper('url');
             $url_data['page_name'] = $this->uri->segment(2);
             $this->load->model('hospitals');
@@ -57,6 +61,11 @@ class Hospital extends CI_Controller {
                 $reqdata = $this->input->post();                
                 $reqdata['e_type'] = 1;
                 
+                print_r($reqdata);
+                
+                return;
+                
+            
                 $result = $this->hospitals->createHospital($reqdata);
                 if($result){
                     $data = array('data'=>$result,'msg'=>'Hospital added successfully','status'=>'success');
@@ -69,15 +78,44 @@ class Hospital extends CI_Controller {
             }
             
             $result = $this->hospitals->getSpecialisation();
-            
            
-            
-           
-           
-            //$data = array_merge($result,$data);
            
             $data['spe_types'] = $result;
             
+            $this->load->model('common');
+            
+            $result_states =  $this->common->get_states();
+            
+            $data['states'] = $result_states;
+            
             $this->load->view('hospitals/create',$data);
         }
+        
+              
+    public function update_status(){
+        
+    $this->load->model('hospitals'); 
+    $status = $this->input->post('status');
+    if($status == "Inactive"){
+        $status = 1;
+        
+    }elseif($status == "Active"){
+        $status = 0;
+        
+    }
+    $entity_id = $this->input->post('id');
+    $this->hospitals->update_user_status($entity_id,$status);
+    }
+    
+    public function get_cities() {
+        
+        $this->load->model('common');
+        
+        $state_id = $this->input->post('state_id');
+        $this->common->get_cities($state_id);
+        
+    }
+        
+        
+        
 }

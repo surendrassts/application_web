@@ -84,9 +84,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             padding: 8px;
         }
 	</style>
-  <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-  <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="//code.jquery.com/jquery-1.9.1.js"></script>
   <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+  <script type='text/javascript' src="http://localhost/docsapp/assets/js/common.js"></script>
   <script>
   
   // When the browser is ready...
@@ -106,7 +106,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             e_loc_state: "required",
             e_loc_zipcode: "required",
             e_loc_phone: {required: true,
-                          phoneIND: true},
+                          number: true},
                      
              
             e_poc_firstname: "required",
@@ -180,7 +180,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </ul>
             </div><div  style="width:80%;float: left;">Content
                 <div class="<?php echo $status;?>"><?php echo $msg; ?></div>
-                <form name="e_create_form" id="e_create_form" method="post">
+                <form name="e_create_form" id="e_create_form" method="post" enctype="multipart/form-data">
                     <table>
                         <tr><td style="width:20%">Name:</td><td  style="width:80%"><input type="text" name="e_name" id="e_name"/></td></tr>
                                 
@@ -191,7 +191,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <option value="">Select Specialization's.. </option>
                                     <?php foreach ($spe_types as $spe){?>   
                                             <option value="<?php echo $spe->id; ?>"><?php echo $spe->name; ?></option>
-                                        
                                         
                                     <?php } ?>
                                             </select>* Note. Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.
@@ -206,8 +205,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tr><td style="width:20%">Location Details:</td><td  style="width:80%"></td></tr>
                         <tr><td style="width:20%">Address line1:</td><td  style="width:80%"><input type="text" name="e_loc_addressline1" id="e_loc_addressline1"/></td></tr>
                         <tr><td style="width:20%">Address line2:</td><td  style="width:80%"><input type="text" name="e_loc_addressline2" id="e_loc_addressline2"/></td></tr>
-                        <tr><td style="width:20%">City:</td><td  style="width:80%"><input type="text" name="e_loc_city" id="e_loc_city"/></td></tr>
-                        <tr><td style="width:20%">State:</td><td  style="width:80%"><input type="text" name="e_loc_state" id="e_loc_state"/></td></tr>
+                        <tr><td style="width:20%">State:</td><td  style="width:80%">
+                                <select name="e_loc_state" id="e_loc_state" class="e_loc_state">
+                                    <option value="0">Select State..</option>
+                                    <?php foreach($states as $state){ ?>
+                                    <option value="<?php echo $state->id; ?>"><?php echo $state->name; ?></option>
+                                    <?php } ?>
+                                </select></td></tr>
+                        <script>
+                                
+                          
+                             $("#e_loc_state").change(function(){
+                                 url = "<?php echo base_url().'hospital/get_cities'; ?>";
+                                 state_id = $("#e_loc_state").val();
+                                 //alert(state_id);
+                                 GC.UTIL.getcities(url,state_id);
+                             });
+                        
+                        </script>
+                        <tr><td style="width:20%">City:</td><td  style="width:80%"><select name="e_loc_city" id="e_loc_city">
+                                    <option value="0">Select City</option>
+                                    </select></td></tr>
                         <tr><td style="width:20%">Zip Code:</td><td  style="width:80%"><input type="text" name="e_loc_zipcode" id="e_loc_zipcode"/></td></tr>
                         <tr><td style="width:20%">Phone:</td><td  style="width:80%"><input type="text" name="e_loc_phone" id="e_loc_phone"/></td></tr>
                         <tr><td style="width:20%">Contact Person Details for This Location:</td><td  style="width:80%"></td></tr>
@@ -215,6 +233,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tr><td style="width:20%">Last Name:</td><td  style="width:80%"><input type="text" name="e_poc_lastname" id="e_poc_lastname"/></td></tr>
                         <tr><td style="width:20%">Email:</td><td  style="width:80%"><input type="text" name="e_poc_email" id="e_poc_email"/></td></tr>
                         <tr><td style="width:20%">Mobile Number:</td><td  style="width:80%"><input type="text" name="e_poc_mobile" id="e_poc_mobile"/></td></tr>
+                         <tr><td style="width:20%">Upload Document:</td><td  style="width:80%"><input type="file" name="e_poc_document" id="e_poc_document"/></td></tr>
                         <tr><td style="width:20%"></td><td  style="width:80%"><input type="submit" name="e_create_submit" value="Submit"/></td></tr>                        
                         </table>
                     

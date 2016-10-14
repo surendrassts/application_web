@@ -163,6 +163,15 @@ class Users extends CI_Model{
     $this->db->update('users',$data);
     echo $status;
   }
+  
+  
+  public function get_cities(){
+      
+        $query = $this->db->get('cities');
+        $data = $query->result();
+        return $data;
+      
+  }
    
 }
 ?>

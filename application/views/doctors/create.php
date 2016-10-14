@@ -197,7 +197,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </ul>
             </div><div  style="width:80%;float: left;">Content
                 <div class="<?php echo $status;?>"><?php echo $msg;?></div>
-                <form name="e_create_form" id="e_create_form" method="post">
+                <form name="e_create_form" id="e_create_form" method="post" enctype="multipart/form-data">
                     <table>
                         <tr><td style="width:20%">First Name:</td><td  style="width:80%"><input type="text" name="e_firstname" id="e_firstname"/></td></tr>
                         <tr><td style="width:20%">Last Name:</td><td  style="width:80%"><input type="text" name="e_lastname" id="e_lastname"/></td></tr>

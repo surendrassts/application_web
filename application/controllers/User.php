@@ -103,6 +103,7 @@ class User extends CI_Controller {
                     }
                 }
             }
+           
             $this->load->view('user/registration',$data);
         }
         

@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
+    <script type='text/javascript' src="http://localhost/docsapp/assets/js/common.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   
 	<meta charset="utf-8">
@@ -152,30 +153,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                  <td>
               <a href="#"  id="<?php echo "status_".$row->user_id; ?>"><?php if($row->user_status == 1){echo "Active";}else{echo "Inactive";}?></a>
               <script>
-                $('#status_<?php echo $row->user_id; ?>').click(function(){
-                    var id = $(this).attr('id').split("_")[1];
-                    var ele = $(this);
-                    var status = $(this).html();
-                    url = "<?php echo base_url().'user/update_status'?>";
-                    $.ajax({
-                      type:"POST",
-                      url: url,
-                      data: {"id":id,"status":status},
-                      success: function(data) {
-                        if(data == '0'){
-                            ele.html('Inactive');
-                        }
-                        if(data == '1'){
-                            ele.html('Active');
-                        }
-                      }
-                    });
-                });
-        </script>
+                  $('#status_<?php echo $row->user_id; ?>').click(function(){
+                   var id = $(this).attr('id').split("_")[1];
+                   var ele = $(this);
+                   var status = $(this).html();
+                   url = "<?php echo base_url().'user/update_status'?>";
+                   US.UTIL.activedeactivate(url,id,status,ele);
+               });
+                             </script>
                  </td>
               </tr>
-              <?php
-              }?>              
+                  <?php
+                  }?>
             </table>
             </div>
             <div style="clear: both"></div>

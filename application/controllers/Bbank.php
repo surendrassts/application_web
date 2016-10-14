@@ -66,14 +66,22 @@ class Bbank extends CI_Controller {
             }
             
              $result = $this->bbanks->getSpecialisation();
-            
-           
-            
-           
-           
-            //$data = array_merge($result,$data);
-           
-            $data['spe_types'] = $result;
-            $this->load->view('bbanks/create',$data);
-        }
-}
+             $data['spe_types'] = $result;
+             $this->load->view('bbanks/create',$data);
+             }
+             public function update_status(){
+                $this->load->model('bbanks');
+                $status = $this->input->post('status');
+                if($status == "Inactive"){
+                    $status = 1;
+                    
+                }elseif($status == "Active"){
+                    $status = 0;
+                    
+                }
+                $entity_id = $this->input->post('id');
+                $this->bbanks->update_user_status($entity_id,$status);
+                
+                }
+                
+                }

@@ -19,9 +19,11 @@ class Hospitals extends CI_Model{
     function getAllHospitals($search_data){
         if(!empty ($search_data['k_search'])){
             $query = $this->db->query("select *,eb.name as eb_branch,eb.status as eb_status from entities e join entity_branches eb on e.id=eb.entity_id join entity_types et on e.entity_type=et.id where et.id=1 and (e.name like '%".$search_data['k_search']."%' or e.description like '%".$search_data['k_search']."%')");
+                 
         }  else {
-            $query = $this->db->query("select *,eb.name as eb_branch,eb.status as eb_status from entities e join entity_branches eb on e.id=eb.entity_id join entity_types et on e.entity_type=et.id where et.id=1");    
-        }        
+            $query = $this->db->query("select e.*,eb.name as eb_branch,eb.status as eb_status,city as eb_city from entities e join entity_branches eb on e.id=eb.entity_id join entity_types et on e.entity_type=et.id where et.id=1");
+            
+        }
         $data = $query->result();
         return $data;
     }   
@@ -59,7 +61,23 @@ class Hospitals extends CI_Model{
         }
         return $result;
     }
+//ACTIVATE OR DEACTIVATE USER
+    public function update_user_status($entity_id,$status){
+        $data['status'] = $status;
+        $this->db->where('id', $entity_id);
+        $this->db->update('entities',$data);
+        echo $status;
+
+    }
     
-}
+     public function get_cities(){
+      
+        $query = $this->db->get_where('cities', array('status' => 1));
+        $data = $query->result();
+        return $data;
+        
+     }
+     
+     }
 
 ?>
