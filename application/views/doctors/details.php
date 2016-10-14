@@ -90,8 +90,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <ul style="list-style: none;">
                     <li><a href="<?php echo base_url();?>user/details">Users</a>
                         <ul>
-                            <li><a href="<?php echo base_url();?>user/create">Create</a></li>                            
-                        </ul>                    
+                            <li><a href="<?php echo base_url();?>user/create">Create</a></li>
+                        </ul>
                     </li>
                     <li><a href="<?php echo base_url();?>hospital/details">Hospitals</a>
                         <ul>
@@ -110,9 +110,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </li>
                     <li><a href="<?php echo base_url();?>doctor/details">Doctors</a>
                         <ul>
-                            <li><a href="<?php echo base_url();?>doctor/create">Create</a></li>                            
+                            <li><a href="<?php echo base_url();?>doctor/create">Create</a></li>
                         </ul>
-                    </li>                    
+                    </li>
                     <li><a href="">Profile</a></li>                    
                 </ul>
             </div><div  style="width:80%;float: left;">Content
