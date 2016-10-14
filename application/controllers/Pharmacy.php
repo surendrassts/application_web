@@ -42,7 +42,7 @@ class Pharmacy extends CI_Controller {
             }
             $result = $this->pharmacys->getAllPharmacys($search_data);
             $data = array('data'=>$result,'k_search'=>$search_data['k_search']);
-            $this->load->view('bbanks/details',$data);
+            $this->load->view('pharmacys/details',$data);
         }
         
         
