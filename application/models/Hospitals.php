@@ -51,11 +51,13 @@ class Hospitals extends CI_Model{
         if($query){
             $query_result = $this->db->query("insert into entity_branches(entity_id,name,addressline1,addressline2,city,state,country,zipcode,poc_name,mobile,landline,email,status,created_at,created_by,modified_at,modified_by) values('".$this->db->insert_id()."',".$this->db->escape($reqdata['e_name'].$reqdata['e_loc_city']).",".$this->db->escape($reqdata['e_loc_addressline1']).",".$this->db->escape($reqdata['e_loc_addressline2']).",".$this->db->escape($reqdata['e_loc_city']).",".$this->db->escape($reqdata['e_loc_state']).",'India',".$this->db->escape($reqdata['e_loc_zipcode']).",".$this->db->escape($reqdata['e_poc_firstname'].$reqdata['e_poc_lastname']).",".$this->db->escape($reqdata['e_poc_mobile']).",".$this->db->escape($reqdata['e_loc_phone']).",".$this->db->escape($reqdata['e_poc_email']).",".$reqdata['e_status'].",now(),'1',now(),'1')");
             if($query_result){
-                $result = $this->db->insert_id();
-                foreach ($reqdata['e_spe'] as $e_spe){
-                    echo $e_spe;
-                    $query = $this->db->query("insert into entity_specializations(entity_id,specialization_id,entity_type) values ('".$result."','$e_spe','".$reqdata['e_type']."')");
-                }
+                 $result = $this->db->insert_id();
+                 $doc_link = $result.$_FILES['e_poc_document']['name'];
+                 $query_doc = $this->db->query("insert into entity_documents(document_name,document_link,entity_id,status) values(".$this->db->escape($reqdata['e_doc_type']).",".$this->db->escape($doc_link).",".$result.",0)");
+                 if($query_doc){  
+                 foreach ($reqdata['e_spe'] as $e_spe){
+                 $query = $this->db->query("insert into entity_specializations(entity_id,specialization_id,entity_type) values ('".$result."','$e_spe','".$reqdata['e_type']."')");
+                 }}
                 $this->db->trans_complete();
             }
         }
@@ -70,13 +72,7 @@ class Hospitals extends CI_Model{
 
     }
     
-     public function get_cities(){
-      
-        $query = $this->db->get_where('cities', array('status' => 1));
-        $data = $query->result();
-        return $data;
-        
-     }
+  
      
      }
 

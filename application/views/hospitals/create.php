@@ -93,7 +93,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   $(function() {
   
     // Setup form validation on the #register-form element
-    $("#e_create_form").validate({
+    $("e_create_form").validate({
     
         // Specify the validation rules
         rules: {
@@ -222,14 +222,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                              $("#e_loc_state").change(function(){
                                  url = "<?php echo base_url().'hospital/get_cities'; ?>";
                                  state_id = $("#e_loc_state").val();
-                                 //alert(state_id);
                                  GC.UTIL.getcities(url,state_id);
                              });
-                        
-                        </script>
-                        <tr><td style="width:20%">City:</td><td  style="width:80%"><select name="e_loc_city" id="e_loc_city">
-                                    <option value="0">Select City</option>
-                                    </select></td></tr>
+                                                     </script>
+                        <tr><td style="width:20%">City:</td><td  style="width:80%"><select name="e_loc_city" id="e_loc_city"></select></td></tr>
                         <tr><td style="width:20%">Zip Code:</td><td  style="width:80%"><input type="text" name="e_loc_zipcode" id="e_loc_zipcode"/></td></tr>
                         <tr><td style="width:20%">Phone:</td><td  style="width:80%"><input type="text" name="e_loc_phone" id="e_loc_phone"/></td></tr>
                         <tr><td style="width:20%">Contact Person Details for This Location:</td><td  style="width:80%"></td></tr>
@@ -237,7 +233,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tr><td style="width:20%">Last Name:</td><td  style="width:80%"><input type="text" name="e_poc_lastname" id="e_poc_lastname"/></td></tr>
                         <tr><td style="width:20%">Email:</td><td  style="width:80%"><input type="text" name="e_poc_email" id="e_poc_email"/></td></tr>
                         <tr><td style="width:20%">Mobile Number:</td><td  style="width:80%"><input type="text" name="e_poc_mobile" id="e_poc_mobile"/></td></tr>
-                         <tr><td style="width:20%">Upload Document:</td><td  style="width:80%"><input type="file" name="e_poc_document" id="e_poc_document"/></td></tr>
+                        <tr><td style="width:20%">Select document type:</td><td  style="width:80%"><select name="e_doc_type" id="e_doc_type" class="e_doc_type">
+                                    <option value="0">Select one</option>
+                                    <option value="Registration">Registration..</option>
+                                </select></td></tr>
+                        <tr><td style="width:20%">Upload Document:</td><td  style="width:80%"><input type="file" name="e_poc_document" id="e_poc_document"/></td></tr>
                         <tr><td style="width:20%"></td><td  style="width:80%"><input type="submit" name="e_create_submit" value="Submit"/></td></tr>                        
                         </table>
                     

@@ -157,7 +157,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                    var id = $(this).attr('id').split("_")[1];
                    var ele = $(this);
                    var status = $(this).html();
-                   url = "<?php echo base_url().'user/update_status'?>";
+                   url = "<?php echo base_url().'user/update_status';?>";
                    US.UTIL.activedeactivate(url,id,status,ele);
                });
                              </script>

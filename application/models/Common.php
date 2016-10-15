@@ -25,12 +25,10 @@ class Common extends CI_Controller {
     
    public function get_cities($state_id){
       
-        $query = $this->db->get_where('cities', array('state_id'=> 1,'status' => 1));
+        $query = $this->db->get_where('cities', array('state_id'=> $state_id,'status' => 1));
         $data = $query->result();
         $this->output->set_content_type('application/json')->set_output(json_encode($data));
-        
-     
-     }
+    }
     
     
     

@@ -46,10 +46,6 @@ class Hospital extends CI_Controller {
         }
         
         public function create() {
-            $config['upload_path']          = './uploads/';
-            $config['allowed_types']        = 'pdf';
-            $config['max_size']             = 100;
-            $this->load->library('upload', $config);
             $this->load->helper('url');
             $url_data['page_name'] = $this->uri->segment(2);
             $this->load->model('hospitals');
@@ -60,13 +56,16 @@ class Hospital extends CI_Controller {
             if($this->input->post('e_create_submit')){
                 $reqdata = $this->input->post();                
                 $reqdata['e_type'] = 1;
-                
-                print_r($reqdata);
-                
-                return;
-                
-            
-                $result = $this->hospitals->createHospital($reqdata);
+                /*LOADING UPLAOD LIBRARY FOR FILE UPLAOD */
+               $result = $this->hospitals->createHospital($reqdata);
+                $config['upload_path']          = './uploads/'.$result."/";
+                $config['allowed_types']        = 'pdf';
+                $config['max_size']             = 1024;
+                $this->load->library('upload', $config);
+                mkdir($config['upload_path'], 0777, TRUE);
+                $this->upload->do_upload('e_poc_document');
+                $error = array('error' => $this->upload->display_errors());
+                 echo $error['error'];
                 if($result){
                     $data = array('data'=>$result,'msg'=>'Hospital added successfully','status'=>'success');
                 }  else {
@@ -113,7 +112,7 @@ class Hospital extends CI_Controller {
         
         $state_id = $this->input->post('state_id');
         $this->common->get_cities($state_id);
-        
+              
     }
         
         
