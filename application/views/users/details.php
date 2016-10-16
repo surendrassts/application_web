@@ -3,14 +3,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
-    <script type='text/javascript' src="http://localhost/docsapp/assets/js/common.js"></script>
+    <script type='text/javascript' src="<?php echo $this->config->item('assets_base_url');?>assets/js/common.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   
 	<meta charset="utf-8">
 	<title>Welcome to CodeIgniter</title>
 
 	<style type="text/css">
-
 	::selection { background-color: #E13300; color: white; }
 	::-moz-selection { background-color: #E13300; color: white; }
 
@@ -82,23 +81,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             background-color: #dddddd;
         }
 	</style>
-        
-        
-        
-
-            
-        
-    
-                     
-        
-        
-        
-        
-        
-        
 </head>
 <body>
-
 <div id="container">
     <div><h1>Welcome to Doctor App Admin module</h1>
         <div style="text-align:right;">Welcome <?php echo $_SESSION['user']->user_email;?> | <a href="<?php echo base_url();?>user/logout">Logout</a></div></div>
@@ -128,6 +112,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <li><a href="<?php echo base_url();?>doctor/details">Doctors</a>
                         <ul>
                             <li><a href="<?php echo base_url();?>doctor/create">Create</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="<?php echo base_url();?>specialization/details">Specializations</a>
+                        <ul>
+                            <li><a href="<?php echo base_url();?>specialization/create">Create</a></li>
                         </ul>
                     </li>
                     <li><a href="">Profile</a></li>                    

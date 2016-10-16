@@ -73,7 +73,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<div id="body">
             <div style="width:20%;float: left;">Menu
                 <ul style="list-style: none;">
-                    <li><a href="<?php echo base_url();?>user/details">Users</a></li>
+                    <li><a href="<?php echo base_url();?>user/details">Users</a>
+                        <ul>
+                            <li><a href="<?php echo base_url();?>specialization/create">Create</a></li>
+                        </ul>
+                    </li>
                     <li><a href="<?php echo base_url();?>hospital/details">Hospitals</a>
                         <ul>
                             <li><a href="<?php echo base_url();?>hospital/create">Create</a></li>                            
@@ -87,6 +91,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <li><a href="<?php echo base_url();?>pharmacy/details">Pharmacy</a>
                         <ul>
                             <li><a href="<?php echo base_url();?>pharmacy/create">Create</a></li>                            
+                        </ul>
+                    </li>
+                    <li><a href="<?php echo base_url();?>speciality/details">Specializations</a>
+                        <ul>
+                            <li><a href="<?php echo base_url();?>speciality/create">Create</a></li>
                         </ul>
                     </li>
                     <li><a href="">Profile</a></li>                    

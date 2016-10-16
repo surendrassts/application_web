@@ -12,4 +12,5 @@ $config['doctors_entity_type'] = '4';
 $config['entity_doc_upload_path'] = 'uploads/';
 $config['entity_doc_max_size'] = '70000';
 $config['entity_doc_file_type'] = 'pdf';
+$config['assets_base_url'] = 'http://localhost/doctor_app_admin/';
 ?>

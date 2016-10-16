@@ -113,9 +113,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <li><a href="<?php echo base_url();?>doctor/create">Create</a></li>
                         </ul>
                     </li>
+                    <li><a href="<?php echo base_url();?>speciality/details">Specializations</a>
+                        <ul>
+                            <li><a href="<?php echo base_url();?>speciality/create">Create</a></li>
+                        </ul>
+                    </li>
                     <li><a href="">Profile</a></li>                    
                 </ul>
             </div><div  style="width:80%;float: left;">Content
+                <form name="k_search_f" id="k_search_f" method="post"><input type="text" name="k_search" id="k_search" value="<?php echo $k_search; ?>"/><input type="submit" name="k_s_submit" id="k_s_submit" value="Submit"/><input type="submit" name="k_c_submit" id="k_c_submit" value="Clear"/></form>
             <table>
               <tr>
                 <th>Hospital Name</th>

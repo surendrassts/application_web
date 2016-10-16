@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
-    <script type='text/javascript' src="http://localhost/docsapp/assets/js/common.js"></script>
+    <script type='text/javascript' src="<?php echo $this->config->item('assets_base_url');?>assets/js/common.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     
 	<meta charset="utf-8">
@@ -114,6 +114,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <li><a href="<?php echo base_url();?>doctor/details">Doctors</a>
                         <ul>
                             <li><a href="<?php echo base_url();?>doctor/create">Create</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="<?php echo base_url();?>speciality/details">Specializations</a>
+                        <ul>
+                            <li><a href="<?php echo base_url();?>speciality/create">Create</a></li>
                         </ul>
                     </li>
                     <li><a href="">Profile</a></li>                    
