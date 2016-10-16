@@ -170,11 +170,9 @@ class Users extends CI_Model{
   
   
   public function get_cities(){
-      
         $query = $this->db->get('cities');
         $data = $query->result();
         return $data;
-      
   }
    
 }

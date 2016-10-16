@@ -55,38 +55,103 @@ class Hospital extends CI_Controller {
             try {
             if($this->input->post('e_create_submit')){
                 $reqdata = $this->input->post();                
-                $reqdata['e_type'] = 1;
+                $reqdata['e_type'] = $this->config->item('hospitals_entity_type');
+                $target_dir = $this->config->item('entity_doc_upload_path');
+                $temp_file = $_FILES["e_poc_document"]["tmp_name"];
+                $uploadOk = 1;
+                // Check if image file is a actual image or fake image
+                if(isset($_POST["submit"])) {
+                    $check = getimagesize($_FILES["e_poc_document"]["tmp_name"]);
+                    if($check !== false) {
+                        echo "File is an image - " . $check["mime"] . ".";
+                        $uploadOk = 1;
+                    } else {
+                        echo "File is not an image.";
+                        $uploadOk = 0;
+                    }
+                }
+                $target_file = $target_dir . basename($_FILES["e_poc_document"]["name"]);
+                // Check if file already exists
+                if (file_exists($target_file)) {
+                    echo "Sorry, file already exists.";
+                    $uploadOk = 0;
+                }
+                // Check file size
+                echo $_FILES["e_poc_document"]["size"];
+                if ($_FILES["e_poc_document"]["size"] > $this->config->item('entity_doc_max_size')) {
+                    echo "Sorry, your file is too large.";
+                    $uploadOk = 0;
+                }
+                // Allow certain file formats
+                $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+                echo $imageFileType;
+                if($imageFileType != $this->config->item('entity_doc_file_type')) {
+                    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                    $uploadOk = 0;
+                }
+                // Allow certain file formats
+                if(!is_writable($target_dir)) {
+                    echo "Folder is not writable";
+                    $uploadOk = 0;
+                }
+                // Check if $uploadOk is set to 0 by an error
+                if ($uploadOk == 0) {
+                    echo "Sorry, your file was not uploaded.";
+                // if everything is ok, try to upload file
+                } else {
+                    $reqdata["timestamp"] = time();
+                    $reqdata["file_ext"] = $imageFileType;
+                    $result = $this->hospitals->createHospital($reqdata);
+                    if($result){
+                    mkdir($target_dir.$result, 0777, TRUE);
+                    $target_path = $target_dir.$result."/".$result."_".$reqdata["timestamp"].".".$reqdata["file_ext"];
+                    if (move_uploaded_file($_FILES["e_poc_document"]["tmp_name"], $target_path)) {
+                        echo "The file ". basename( $_FILES["e_poc_document"]["name"]). " has been uploaded.";
+                    } else {
+                        echo "Sorry, there was an error uploading your file.";
+                    }
+                    }
+                    if($result){
+                        $data = array('data'=>$result,'msg'=>'Hospital added successfully','status'=>'success');
+                    }  else {
+                        $data = array('data'=>$result,'msg'=>'There is an error in backend','status'=>'error');
+                    } 
+                }
                 /*LOADING UPLAOD LIBRARY FOR FILE UPLAOD */
-               $result = $this->hospitals->createHospital($reqdata);
-                $config['upload_path']          = './uploads/'.$result."/";
+                /*$config['file_name'] = time();
+                $config['upload_path']          = './uploads/';
                 $config['allowed_types']        = 'pdf';
                 $config['max_size']             = 1024;
                 $this->load->library('upload', $config);
+                if (!$this->upload->do_upload('e_poc_document'))
+                {
+                echo $this->upload->display_errors();
+                }
+                else
+                {
+                    $result = 52;
+                $config['upload_path']          = './uploads/'.$result."/";
                 mkdir($config['upload_path'], 0777, TRUE);
-                $this->upload->do_upload('e_poc_document');
-                $error = array('error' => $this->upload->display_errors());
-                 echo $error['error'];
-                if($result){
-                    $data = array('data'=>$result,'msg'=>'Hospital added successfully','status'=>'success');
-                }  else {
-                    $data = array('data'=>$result,'msg'=>'There is an error in backend','status'=>'error');
-                }                
+                //$result = $this->hospitals->createHospital($reqdata);
+                $res = $this->upload->data();
+                $file_path     = $res['file_path'];
+                $file         = $res['full_path'];
+                $file_ext     = $res['file_ext'];
+                $final_file_name = time().$file_ext;
+
+                // here is the renaming functon
+                rename($file, $file_path . $final_file_name);
+                }*/
             }
             }  catch (Exception $e){
                 $data = array('data'=>$result,'msg'=>'There is an error in backend','status'=>'error');
             }
             
             $result = $this->hospitals->getSpecialisation();
-           
-           
             $data['spe_types'] = $result;
-            
             $this->load->model('common');
-            
             $result_states =  $this->common->get_states();
-            
             $data['states'] = $result_states;
-            
             $this->load->view('hospitals/create',$data);
         }
         
