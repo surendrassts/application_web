@@ -110,10 +110,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                },               
            'e_service[]': "required",
             e_status: "required",
-            e_addressline1: "required",
-            e_city: "required",
-            e_state: "required",
-            e_zipcode: "required",
+            e_loc_addressline1: "required",
+            e_loc_addressline2: "required",
+            e_loc_city: "required",
+            e_loc_state: "required",
+            e_loc_zipcode: "required",
             e_phone:{required: true,
                           phoneIND: true},
            
@@ -137,10 +138,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             'e_service[]': "Please select atleast one specialization",
             e_description: "Please enter a valid description",
             e_status: "Please select status",
-            e_addressline1: "Please enter a valid address",
-            e_city: "Please enter a valid city",
-            e_state: "Please enter a valid state",
-            e_zipcode: "Please enter zipcode",
+            e_loc_addressline1: "Please enter a valid addressline1",
+            e_loc_addressline2: "Please enter a valid addressline2",
+            e_loc_city: "Please enter a valid city",
+            e_loc_state: "Please enter a valid state",
+            e_loc_zipcode: "Please enter zipcode",
             e_phone: "Please enter a valid phone number",
             
                       
@@ -223,11 +225,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </select>
                         </td></tr>
                         <tr><td style="width:20%">Location Details:</td><td  style="width:80%"></td></tr>
-                        <tr><td style="width:20%">Address line1:</td><td  style="width:80%"><input type="text" name="e_addressline1" id="e_loc_addressline1"/></td></tr>
-                        <tr><td style="width:20%">Address line2:</td><td  style="width:80%"><input type="text" name="e_addressline2" id="e_loc_addressline2"/></td></tr>
-                        <tr><td style="width:20%">City:</td><td  style="width:80%"><input type="text" name="e_city" id="e_loc_city"/></td></tr>
-                        <tr><td style="width:20%">State:</td><td  style="width:80%"><input type="text" name="e_state" id="e_loc_state"/></td></tr>
-                        <tr><td style="width:20%">Zip Code:</td><td  style="width:80%"><input type="text" name="e_zipcode" id="e_loc_zipcode"/></td></tr>
+                        <tr><td style="width:20%">Address line1:</td><td  style="width:80%"><input type="text" name="e_loc_addressline1" id="e_loc_addressline1"/></td></tr>
+                        <tr><td style="width:20%">Address line2:</td><td  style="width:80%"><input type="text" name="e_loc_addressline2" id="e_loc_addressline2"/></td></tr>
+                        <tr><td style="width:20%">City:</td><td  style="width:80%"><input type="text" name="e_loc_city" id="e_loc_city"/></td></tr>
+                        <tr><td style="width:20%">State:</td><td  style="width:80%"><input type="text" name="e_loc_state" id="e_loc_state"/></td></tr>
+                        <tr><td style="width:20%">Zip Code:</td><td  style="width:80%"><input type="text" name="e_loc_zipcode" id="e_loc_zipcode"/></td></tr>
                         <tr><td style="width:20%">Blood Donation Status:</td><td  style="width:80%"></td></tr>
                         <tr><td style="width:20%">Willing to Donate Blood:</td><td  style="width:80%"><input type="checkbox" name="e_donation_status" id="e_donation_status" value="1"/></td></tr>
                         <tr><td style="width:20%">Blood Group:</td><td  style="width:80%"><select name="e_blood_group" id="e_blood_group">

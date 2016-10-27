@@ -28,11 +28,12 @@ getcities: function(url,state_id){
         datatype: 'json',
         data: {"state_id":state_id},
         success: function(data){
+            data = eval(data);
             if((data.length)!=0){
                 $.each(data,function(key,city)
                 {
                     var opt = $("<option></option>");
-                    $('#e_loc_city').append(opt.attr("value",city.id).text(city.city_name));
+                    $('#e_loc_city').append(opt.attr("value",city.id).text(city.name));
                 });
             }else{
                 var opt = $('<option/>');
