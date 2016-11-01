@@ -237,7 +237,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <option value="B-">B-</option>
                         <option value="O+">O+</option>
                         <option value="O-">O-</option>
-                        </select></td></tr>
+                        </select></td>
+                        </tr>
+                        <tr><td style="width:20%">Select document type:</td><td  style="width:80%"><select name="e_doc_type" id="e_doc_type" class="e_doc_type">
+                                    <option value="0">Select one</option>
+                                    <option value="Registration">Registration..</option>
+                                </select></td></tr>
+                        <tr><td style="width:20%">Upload Document:</td><td  style="width:80%"><input type="file" name="e_poc_document" id="e_poc_document"/></td></tr>
                         
                         <tr><td style="width:20%"></td><td  style="width:80%"><input type="submit" name="e_create_submit" value="Submit"/></td></tr>                        
                     </table>

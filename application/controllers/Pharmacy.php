@@ -65,6 +65,18 @@ class Pharmacy extends CI_Controller {
             }  catch (Exception $e){
                 $data = array('data'=>$result,'msg'=>'There is an error in backend','status'=>'error');
             }
+            
+             $result_states =  $this->pharmacys->get_states();
+             $data['states'] = $result_states;
             $this->load->view('pharmacys/create',$data);
         }
+        
+            public function get_cities() {
+        
+        $this->load->model('pharmacys');
+        $state_id = $this->input->post('state_id');
+        $this->pharmacys->get_cities($state_id);
+              
+    }
+       
 }

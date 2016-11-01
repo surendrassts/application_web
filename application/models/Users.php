@@ -169,11 +169,33 @@ class Users extends CI_Model{
   }
   
   
-  public function get_cities(){
-        $query = $this->db->get('cities');
+     
+    public function get_country(){
+      
+        $query = $this->db->get_where('country', array('status' => 1));
         $data = $query->result();
         return $data;
-  }
+        
+     }
+    
+    public function get_states(){
+      
+        $query = $this->db->get_where('state', array('status' => 1));
+        $data = $query->result();
+        return $data;
+        
+     }
+    
+    
+    
+    
+   public function get_cities($state_id){
+      
+        $query = $this->db->get_where('cities', array('state_id'=> $state_id,'status' => 1));
+        $data = $query->result();
+        $this->output->set_content_type('application/json')->set_output(json_encode($data));
+    }
+    
    
 }
 ?>

@@ -150,7 +150,7 @@ class Hospital extends CI_Controller {
             $result = $this->hospitals->getSpecialisation();
             $data['spe_types'] = $result;
             $this->load->model('common');
-            $result_states =  $this->common->get_states();
+            $result_states =  $this->hospitals->get_states();
             $data['states'] = $result_states;
             $this->load->view('hospitals/create',$data);
         }
@@ -173,10 +173,9 @@ class Hospital extends CI_Controller {
     
     public function get_cities() {
         
-        $this->load->model('common');
-        
+        $this->load->model('hospitals');
         $state_id = $this->input->post('state_id');
-        $this->common->get_cities($state_id);
+        $this->hospitals->get_cities($state_id);
               
     }
         
