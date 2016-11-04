@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
-     <?php $this->load->view('common_view.php'); ?>
+    
     <meta charset="utf-8">
     <title>Welcome to CodeIgniter</title>
 </head>
@@ -15,6 +15,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           
         <div id="body">
             <div style="width:20%;float: left;">Menu
+                 <?php $this->load->view('common_view.php'); ?>
+                <!--
                 <ul style="list-style: none;">
                     <li><a href="<?php echo base_url();?>user/details">Users</a>
                         <ul>
@@ -47,26 +49,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </ul>
                     </li>
                     <li><a href="">Profile</a></li>                    
-                </ul>
+                </ul> -->
             </div><div  style="width:80%;float: left;">Content
                 <div class="<?php echo $status;?>"><?php echo $msg; ?></div>
                 
                 <form name="e_create_form" id="e_create_form" method="post" enctype="multipart/form-data">
                     <table>
                         <tr><td style="width:20%">Name:</td><td  style="width:80%"><input type="text" name="e_name" id="e_name"/></td></tr>
-                                
-                         <tr><td style="width:20%">Select Specislisation:</td>
-                                    
-                                    <td  style="width:80%">
-                                        <select name="e_spe[]" id="spe" multiple>
-                                            <option value="">Select Specialization's.. </option>
-                                    <?php foreach ($spe_types as $spe){?>   
-                                            <option value="<?php echo $spe->id; ?>"><?php echo $spe->name; ?></option>
-                                        
-                                    <?php } ?>
-                                            </select>* Note. Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.
-                            </td></td></tr>
-                        <tr><td style="width:20%">Description:</td><td  style="width:80%"><textarea name="e_description" id="e_description"></textarea></td></tr>
+                       <tr><td style="width:20%">Description:</td><td  style="width:80%"><textarea name="e_description" id="e_description"></textarea></td></tr>
                         <tr><td style="width:20%">Status:</td><td  style="width:80%"><select name="e_status" id="e_status">
                         <option value="">Choose Status...</option>
                         <option value="0">Block</option>

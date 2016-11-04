@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
-     <?php $this->load->view('common_view.php'); ?>
+    
     <meta charset="utf-8">
     <title>Welcome to CodeIgniter</title>
 </head>
@@ -14,7 +14,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div style="text-align:right;">Welcome <?php echo $_SESSION['user']->user_email;?> | <a href="<?php echo base_url();?>user/logout">Logout</a></div></div>
           
         <div id="body">
-            <div style="width:20%;float: left;">Menu
+            <div style="width:20%;float: left;">
+                 <?php $this->load->view('common_view.php'); ?>
+                <!-- 
+                Menu
                 <ul style="list-style: none;">
                     <li><a href="<?php echo base_url();?>user/details">Users</a>
                         <ul>
@@ -47,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </ul>
                     </li>
                     <li><a href="">Profile</a></li>                    
-                </ul>
+                </ul>  -->
             </div><div  style="width:80%;float: left;">Content
                 <div class="<?php echo $status;?>"><?php echo $msg; ?></div>
                 

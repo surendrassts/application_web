@@ -68,6 +68,39 @@
 <script src="//code.jquery.com/jquery-1.9.1.js"></script>
 <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
 <script type='text/javascript' src="http://localhost/docsapp/assets/js/common.js"></script>
+<ul style="list-style: none;">
+                    <li><a href="<?php echo base_url();?>user/details">Users</a>
+                        <ul>
+                            <li><a href="<?php echo base_url();?>user/create">Create</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="<?php echo base_url();?>hospital/details">Hospitals</a>
+                        <ul>
+                            <li><a href="<?php echo base_url();?>hospital/create">Create</a></li>                            
+                        </ul>
+                    </li>
+                    <li><a href="<?php echo base_url();?>bbank/details">Blood Banks</a>
+                        <ul>
+                            <li><a href="<?php echo base_url();?>bbank/create">Create</a></li>                            
+                        </ul>
+                    </li>
+                    <li><a href="<?php echo base_url();?>pharmacy/details">Pharmacy</a>
+                        <ul>
+                            <li><a href="<?php echo base_url();?>pharmacy/create">Create</a></li>                            
+                        </ul>
+                    </li>
+                    <li><a href="<?php echo base_url();?>doctor/details">Doctors</a>
+                        <ul>
+                            <li><a href="<?php echo base_url();?>doctor/create">Create</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="<?php echo base_url();?>speciality/details">Specializations</a>
+                        <ul>
+                            <li><a href="<?php echo base_url();?>speciality/create">Create</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="">Profile</a></li>                    
+                </ul>
 <script>
     /*When the browser is ready...*/
     $(document).ready(function() {
@@ -116,4 +149,71 @@
             }
         });
     });
+</script>
+ <script>
+  
+  // When the browser is ready...
+  $(document).ready(function(){
+  
+    // Setup form validation on the #register-form element
+    $("#e_create_form_doc").validate({
+    
+        // Specify the validation rules
+        rules: {
+            e_firstname: "required",
+            e_lastname: "required",
+            e_password:{ required: true,
+                         minlength: 6,
+                         maxlength: 10
+               }, 
+            e_c_password:{equalTo: "#e_password",
+                          minlength: 6,
+                          maxlength: 10
+               },               
+           'e_service[]': "required",
+            e_status: "required",
+            e_addressline1: "required",
+            e_city: "required",
+            e_state: "required",
+            e_zipcode: "required",
+            e_phone:{required: true,
+                          phoneIND: true},
+           
+            e_mobile:{required: true,
+                       number: true,
+                       minlength: 10,
+                       maxlength: 10
+                 },
+            e_email: {
+                required: true,
+                email: true
+            }
+            
+        },
+        
+        // Specify the validation error messages
+        messages: {
+            e_firstname: "Please enter firstname",
+            e_lastname: "Please enter lastname",
+            e_password: "Please enter Password with minimum 6 ",
+            'e_service[]': "Please select atleast one specialization",
+            e_description: "Please enter a valid description",
+            e_status: "Please select status",
+            e_addressline1: "Please enter a valid address",
+            e_city: "Please enter a valid city",
+            e_state: "Please enter a valid state",
+            e_zipcode: "Please enter zipcode",
+            e_phone: "Please enter a valid phone number",
+            
+                      
+            e_email: "Please enter a valid email address",
+            e_mobile: "Please enter valid mobile"
+        },
+        
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
+
+  });
 </script>
