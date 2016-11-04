@@ -82,7 +82,6 @@ class Bbank extends CI_Controller {
                 }
                 // Allow certain file formats
                 $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-                echo $imageFileType;
                 if($imageFileType != $this->config->item('entity_doc_file_type')) {
                     echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
                     $uploadOk = 0;
@@ -123,7 +122,6 @@ class Bbank extends CI_Controller {
             
              $result = $this->bbanks->getSpecialisation();
              $data['spe_types'] = $result;
-             $this->load->model('common');
              $result_states =  $this->bbanks->get_states();
              $data['states'] = $result_states;
              $this->load->view('bbanks/create',$data);

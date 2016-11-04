@@ -135,5 +135,22 @@ class Pharmacy extends CI_Controller {
         $this->pharmacys->get_cities($state_id);
               
     }
+    
+     public function update_status(){
+            $this->load->model('pharmacys');
+            $status = $this->input->post('status');
+            if($status == "Inactive"){
+               $status = 1;
+                
+            }elseif($status == "Active"){
+               $status = 0;
+                
+            }
+            $entity_id = $this->input->post('id');
+            $this->pharmacys->update_entity_status($entity_id,$status);
+            
+            }
+            
+   
        
 }

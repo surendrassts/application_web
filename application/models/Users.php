@@ -108,7 +108,7 @@ class Users extends CI_Model{
             return $result;
         }
         $this->db->trans_start();
-        $query = $this->db->query("insert into users(first_name,last_name,user_email,user_password,user_mobile,user_status,is_email_verified,is_mobile_verified,blood_donation_status,blood_group) values(".$this->db->escape($reqdata['e_firstname']).",".$this->db->escape($reqdata['e_lastname']).",".$this->db->escape($reqdata['e_email']).",".$this->db->escape(md5($reqdata['e_password'])).",".$this->db->escape($reqdata['e_mobile']).",".$this->db->escape($reqdata['e_status']).",1,1,".$this->db->escape($reqdata['e_donation_status']).",".$this->db->escape($reqdata['e_blood_group']).")");
+        $query = $this->db->query("insert into users(first_name,last_name,user_email,user_password,user_mobile,user_status,is_email_verified,is_mobile_verified,blood_donation_status,blood_group,created_at,created_by,modified_at,modified_by) values(".$this->db->escape($reqdata['e_firstname']).",".$this->db->escape($reqdata['e_lastname']).",".$this->db->escape($reqdata['e_email']).",".$this->db->escape(md5($reqdata['e_password'])).",".$this->db->escape($reqdata['e_mobile']).",".$this->db->escape($reqdata['e_status']).",1,1,".$this->db->escape($reqdata['e_donation_status']).",".$this->db->escape($reqdata['e_blood_group']).",now(),1,now(),1)");
         if($query){
             $result=$this->db->insert_id();
             foreach ($reqdata['e_role'] as $value) {
@@ -119,16 +119,20 @@ class Users extends CI_Model{
             $query_entity = $this->db->query("insert into entities(entity_type,name,status,user_id,created_at,created_by,modified_at,modified_by) values('".$this->config->item('doctors_entity_type')."',".$this->db->escape($reqdata['e_firstname'].' '.$reqdata['e_lastname']).",".$this->db->escape($reqdata['e_status']).",".$this->db->escape($result).",now(),1,now(),1)");
             if($query_entity){
                 $result_entity_id = $this->db->insert_id();
-            foreach ($reqdata['e_service'] as $value) {
+                 $doc_link = $result_entity_id."_".$reqdata["timestamp"].".".$reqdata["file_ext"];
+                 $query_doc = $this->db->query("insert into entity_documents(document_name,document_link,entity_id,status) values(".$this->db->escape($reqdata['e_doc_type']).",".$this->db->escape($doc_link).",".$result_entity_id.",0)");
+                 if($query_doc){
+             foreach ($reqdata['e_service'] as $value) {
                 if($value){
                     $query_service = $this->db->query("insert into entity_specializations(entity_id,user_id,specialization_id,entity_type) values('".$result_entity_id."','".$result."','".$value."','".$this->config->item('doctors_entity_type')."')");
                 }
             }
+                 }
             }
             $query_address = $this->db->query("insert into user_address(user_id,user_add_line1,user_add_line2,user_city,user_state,user_zipcode,created_at,created_by,modified_at,modified_by) values(".$result.",".$this->db->escape($reqdata['e_loc_addressline1']).",".$this->db->escape($reqdata['e_loc_addressline2']).",".$this->db->escape($reqdata['e_loc_city']).",".$this->db->escape($reqdata['e_loc_state']).",".$this->db->escape($reqdata['e_loc_zipcode']).",now(),1,now(),1)");
             if($query_address){
                 $this->db->trans_complete();
-                return $result;
+                return $result_entity_id;
             } else {
                 $result = "failure";
                 return $result;

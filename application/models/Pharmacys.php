@@ -18,10 +18,12 @@ class Pharmacys extends CI_Model{
     
     function getAllPharmacys($search_data){
         if(!empty ($search_data['k_search'])){
-            $query = $this->db->query("select *,eb.name as eb_branch,eb.status as eb_status from entities e join entity_branches eb on e.id=eb.entity_id join entity_types et on e.entity_type=et.id where et.id=3 and (e.name like '%".$search_data['k_search']."%' or e.description like '%".$search_data['k_search']."%')");
+            $query = $this->db->query("select e.*,eb.name as eb_branch,eb.status as eb_status,city from entities e join entity_branches eb on e.id=eb.entity_id join entity_types et on e.entity_type=et.id where et.id=3 and (e.name like '%".$search_data['k_search']."%' or e.description like '%".$search_data['k_search']."%')");
         }  else {
-            $query = $this->db->query("select *,eb.name as eb_branch,eb.status as eb_status from entities e join entity_branches eb on e.id=eb.entity_id join entity_types et on e.entity_type=et.id where et.id=3");    
-        }        
+            $query = $this->db->query("select e.*,eb.name as eb_branch,eb.status as eb_status,city from entities e join entity_branches eb on e.id=eb.entity_id join entity_types et on e.entity_type=et.id where et.id=3");    
+        }  
+        
+        
         $data = $query->result();
         return $data;
     }   
@@ -79,6 +81,17 @@ class Pharmacys extends CI_Model{
         $query = $this->db->get_where('cities', array('state_id'=> $state_id,'status' => 1));
         $data = $query->result();
         $this->output->set_content_type('application/json')->set_output(json_encode($data));
+    }
+    
+              //ACTIVATE OR DEACTIVATE USER
+   //ACTIVATE OR DEACTIVATE USER
+    
+    public function update_entity_status($entity_id,$status){
+        $data['status'] = $status;
+        $this->db->where('id', $entity_id);
+        $this->db->update('entities',$data);
+        echo $status;
+
     }
     
     

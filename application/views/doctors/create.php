@@ -76,11 +76,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </select>
                         </td></tr>
                         <tr><td style="width:20%">Location Details:</td><td  style="width:80%"></td></tr>
-                        <tr><td style="width:20%">Address line1:</td><td  style="width:80%"><input type="text" name="e_addressline1" id="e_loc_addressline1"/></td></tr>
-                        <tr><td style="width:20%">Address line2:</td><td  style="width:80%"><input type="text" name="e_addressline2" id="e_loc_addressline2"/></td></tr>
-                        <tr><td style="width:20%">City:</td><td  style="width:80%"><input type="text" name="e_city" id="e_loc_city"/></td></tr>
-                        <tr><td style="width:20%">State:</td><td  style="width:80%"><input type="text" name="e_state" id="e_loc_state"/></td></tr>
-                        <tr><td style="width:20%">Zip Code:</td><td  style="width:80%"><input type="text" name="e_zipcode" id="e_loc_zipcode"/></td></tr>
+                        <tr><td style="width:20%">Address line1:</td><td  style="width:80%"><input type="text" name="e_loc_addressline1" id="e_loc_addressline1"/></td></tr>
+                        <tr><td style="width:20%">Address line2:</td><td  style="width:80%"><input type="text" name="e_loc_addressline2" id="e_loc_addressline2"/></td></tr>
+                          <tr><td style="width:20%">State:</td><td  style="width:80%">
+                                <select name="e_loc_state" id="e_loc_state" class="e_loc_state">
+                                    <option value="">Select State..</option>
+                                    <?php foreach($states as $state){ ?>
+                                    <option value="<?php echo $state->id; ?>"><?php echo $state->name; ?></option>
+                                    <?php } ?>
+                                </select></td></tr>
+                        <script>
+                                
+                          
+                             $("#e_loc_state").change(function(){
+                                 url = "<?php echo base_url().'bbank/get_cities'; ?>";
+                                 state_id = $("#e_loc_state").val();
+                                 GC.UTIL.getcities(url,state_id);
+                             });
+                                                     </script>
+                        <tr><td style="width:20%">City:</td><td  style="width:80%"><select name="e_loc_city" id="e_loc_city"></select></td></tr>
+                        <tr><td style="width:20%">Zip Code:</td><td  style="width:80%"><input type="text" name="e_loc_zipcode" id="e_loc_zipcode"/></td></tr>
                         <tr><td style="width:20%">Blood Donation Status:</td><td  style="width:80%"></td></tr>
                         <tr><td style="width:20%">Willing to Donate Blood:</td><td  style="width:80%"><input type="checkbox" name="e_donation_status" id="e_donation_status" value="1"/></td></tr>
                         <tr><td style="width:20%">Blood Group:</td><td  style="width:80%"><select name="e_blood_group" id="e_blood_group">

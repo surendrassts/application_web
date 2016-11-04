@@ -3,6 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type='text/javascript' src="<?php echo $this->config->item('assets_base_url');?>assets/js/common.js"></script>
 	<meta charset="utf-8">
 	<title>Welcome to CodeIgniter</title>
 
@@ -129,15 +131,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <th>City</th>
                 <th>Status</th>
               </tr>
-              <?php 
+              <?php
+              
               foreach($data as $row){
               ?>
               <tr>
                 <td><?php echo $row->name;?></td>
                 <td><?php echo $row->eb_branch;?></td>
                 <td><?php echo $row->city;?></td>
-                <td><?php if($row->eb_status==1){echo "Active";}elseif ($row->eb_status==0) {
-                    echo "Blocked";}?>
+                <td><a href="#"  id="<?php echo "status_".$row->id; ?>"><?php if($row->eb_status == 1){echo "Active";}else{echo "Inactive";}?></a>
+              <script>
+                  $('#status_<?php echo $row->id; ?>').click(function(){
+                   var id = $(this).attr('id').split("_")[1];
+                   var ele = $(this);
+                   var status = $(this).html();
+                   url = "<?php echo base_url().'pharmacy/update_status'?>";
+                   US.UTIL.activedeactivate(url,id,status,ele);
+               });
+                             </script>
+                    
                 </td>
               </tr>
               <?php
