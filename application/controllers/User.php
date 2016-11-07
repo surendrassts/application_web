@@ -142,22 +142,49 @@ class User extends CI_Controller {
         }
         
         
+        public function edit(){
+            $user_id = $_GET['user_id'];
+            $this->load->model('users');
+            $result = $this->users->edit_user($user_id);
+            $data = array("data"=>$result);
+            $result_states =  $this->users->get_states();
+            $data['states'] = $result_states;
+            $this->load->view('users/edit_user',$data);
+            
+        }
+        public function update(){
+            $data = array('data'=>'','msg'=>'User Sucessfully Updated','status'=>'');
+            if($this->input->post('e_update_submit')){
+                $this->load->model('users');
+                $updatedata = $this->input->post();
+                $this->users->update_user($updatedata);
+                $this->details();
+                
+            }
+            
+            }
+            public function update_status(){
+                $this->load->model('users');
+                $status = $this->input->post('status');
+                if($status == "Inactive"){
+                    $status = 1;
+                    
+                }elseif($status == "Active"){
+                    $status = 0;
+                    
+                }
+                $course_id = $this->input->post('id');
+                $this->users->update_user_status($course_id,$status);
+                
+                }
         
-    public function update_status(){
         
-    $this->load->model('users'); 
-    $status = $this->input->post('status');
-    if($status == "Inactive"){
-        $status = 1;
-    }elseif($status == "Active"){
-       $status = 0;
-    }
-    $course_id = $this->input->post('id');
-    $this->users->update_user_status($course_id,$status);
-}
-        
-        
-        
+           public function get_cities() {
+               $this->load->model('users');
+               $state_id = $this->input->post('state_id');
+               $this->hospitals->get_cities($state_id);
+               
+           }
         
         
         

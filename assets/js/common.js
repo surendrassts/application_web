@@ -45,6 +45,35 @@ getcities: function(url,state_id){
 }
 
 
+var GE = {};
+GE.UTIL ={
+getcities: function(url,state_id){
+    alert(url);
+    $('#e_city').empty();
+    $.ajax({
+        type:"POST",
+        url : url,
+        datatype: 'json',
+        data: {"state_id":state_id},
+        success: function(data){
+            if((data.length)!=0){
+                $.each(data,function(key,city)
+                {
+                    var opt = $("<option></option>");
+                    $('#e_city').append(opt.attr("value",city.id).text(city.city_name));
+                });
+            }else{
+                var opt = $('<option/>');
+                opt.text('No Cities for this state');
+                $('#e_city').append(opt);
+            }
+        }
+    });
+    
+ 
+}
+}
+
 
 
    

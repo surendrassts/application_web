@@ -62,6 +62,42 @@ class Users extends CI_Model{
             return '';
         }
     }
+    function edit_user($user_id){
+        
+        
+        $query = $this->db->query("select a.*,b.* from users as a left join user_address as b on a.user_id = b.user_id where a.user_id='$user_id'");
+        $result = $query->result();
+        return $result;
+        
+        
+    }
+    
+    function update_user($updatedata){
+       
+        $data =array(
+        "first_name" => $updatedata['e_firstname'],
+        "last_name" => $updatedata['e_lastname'],
+        "user_email" => $updatedata['e_email'],
+        "user_mobile" => $updatedata['e_mobile'],
+        "user_status" => $updatedata['e_status'],
+          );
+        $this->db->where('user_id', $updatedata['user_id']);
+        $this->db->update('users', $data);
+        
+        
+        $data =array(
+        "user_add_line1" => $updatedata['e_addressline1'],
+            "user_add_line2" => $updatedata['e_addressline2'],
+            "user_city" => $updatedata['e_city'],
+            "user_state" => $updatedata['e_state'],
+            "user_zipcode" => $updatedata['e_zipcode'],
+            );
+        $this->db->where('user_id', $updatedata['user_id']);
+        $this->db->update('user_address', $data);
+        
+        
+    }
+    
     
     function getAllUsers($search_data){
         if(!empty ($search_data['k_search'])){
@@ -194,10 +230,9 @@ class Users extends CI_Model{
     
     
    public function get_cities($state_id){
-      
-        $query = $this->db->get_where('cities', array('state_id'=> $state_id,'status' => 1));
-        $data = $query->result();
-        $this->output->set_content_type('application/json')->set_output(json_encode($data));
+       $query = $this->db->get_where('cities', array('state_id'=> $state_id,'status' => 1));
+       $data = $query->result();
+       $this->output->set_content_type('application/json')->set_output(json_encode($data));
     }
     
    
