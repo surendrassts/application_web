@@ -67,7 +67,7 @@
 </style>
 <script src="//code.jquery.com/jquery-1.9.1.js"></script>
 <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
-<script type='text/javascript' src="http://localhost:8080/docsapp/assets/js/common.js"></script>
+<script type='text/javascript' src="http://localhost/docsapp/assets/js/common.js"></script>
 <ul style="list-style: none;">
                     <li><a href="<?php echo base_url();?>user/details">Users</a>
                         <ul>

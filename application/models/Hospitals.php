@@ -47,14 +47,23 @@ class Hospitals extends CI_Model{
     function edit_hospital($entity_id){
         
         
-        $query = $this->db->query("select e.*,eb.* from entities as e left join entity_branches as eb on e.id = eb.entity_id  where e.id='$entity_id'");
-        $result = $query->result();
+        $query1 = $this->db->query("select e.*,eb.* from entities as e left join entity_branches as eb on e.id = eb.entity_id  where e.id='$entity_id'");
+        
+        //echo "select e.*,eb.* from entities as e left join entity_branches as eb on e.id = eb.entity_id  where e.id='$entity_id'";
+        
+        $result['entity'] = $query1->result_array();
         
         
-        $query = $this->db->query("select * from entity_specializations where entity_id = '$entity_id'");
-        $result['specializations'] = $query->result();
-        return $result;
+        $query2 = $this->db->query("select * from entity_specializations where entity_id = '$entity_id'");
+        echo "select * from entity_specializations where entity_id = '$entity_id'";
+        $result = $query2->result_array();
+        if($result){
+        $result['spe'] = $result;
+        }
         
+        
+        
+        return array('entity'=>$query1,'spe'=>$query2);
         
     }
     
