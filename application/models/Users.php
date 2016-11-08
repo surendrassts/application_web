@@ -80,7 +80,16 @@ class Users extends CI_Model{
         "user_email" => $updatedata['e_email'],
         "user_mobile" => $updatedata['e_mobile'],
         "user_status" => $updatedata['e_status'],
-          );
+        "blood_group" => $updatedata['e_blood_group']
+         );
+        if(isset($_POST['e_donation_status'])){
+            $data["blood_donation_status"] = $updatedata['e_donation_status'];
+            $data ["blood_group"] = $updatedata['e_blood_group'];
+            
+        }else{
+            $data["blood_donation_status"] = 0;
+            
+        }
         $this->db->where('user_id', $updatedata['user_id']);
         $this->db->update('users', $data);
         
@@ -90,8 +99,8 @@ class Users extends CI_Model{
             "user_add_line2" => $updatedata['e_addressline2'],
             "user_city" => $updatedata['e_city'],
             "user_state" => $updatedata['e_state'],
-            "user_zipcode" => $updatedata['e_zipcode'],
-            );
+            "user_zipcode" => $updatedata['e_zipcode']
+                );
         $this->db->where('user_id', $updatedata['user_id']);
         $this->db->update('user_address', $data);
         
@@ -225,15 +234,15 @@ class Users extends CI_Model{
         return $data;
         
      }
-    
-    
-    
-    
-   public function get_cities($state_id){
+     
+     
+     public function get_cities($state_id){
        $query = $this->db->get_where('cities', array('state_id'=> $state_id,'status' => 1));
        $data = $query->result();
        $this->output->set_content_type('application/json')->set_output(json_encode($data));
-    }
+    
+       //print_r($data);
+   }
     
    
 }

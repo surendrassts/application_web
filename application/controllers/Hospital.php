@@ -117,6 +117,10 @@ class Hospital extends CI_Controller {
                         $data = array('data'=>$result,'msg'=>'There is an error in backend','status'=>'error');
                     } 
                 }
+                
+                
+                
+                
                 /*LOADING UPLAOD LIBRARY FOR FILE UPLAOD */
                 /*$config['file_name'] = time();
                 $config['upload_path']          = './uploads/';
@@ -155,21 +159,47 @@ class Hospital extends CI_Controller {
             $this->load->view('hospitals/create',$data);
         }
         
-              
-    public function update_status(){
-        
-    $this->load->model('hospitals'); 
-    $status = $this->input->post('status');
-    if($status == "Inactive"){
-        $status = 1;
-        
-    }elseif($status == "Active"){
-        $status = 0;
-        
-    }
-    $entity_id = $this->input->post('id');
-    $this->hospitals->update_user_status($entity_id,$status);
-    }
+         public function edit(){
+             $data = array('data'=>'','msg'=>'','status'=>'');
+            $entity_id = $_GET['entity_id'];
+            $this->load->model('hospitals');
+            $result = $this->hospitals->edit_hospital($entity_id);
+            $data = array("data"=>$result);
+            $result_states =  $this->hospitals->get_states();
+            $data['states'] = $result_states;
+            print_r($data);
+            $this->load->view('hospitals/edit_hospital',$data);
+            
+         }
+         
+         
+        public function update(){
+            $data = array('data'=>'','msg'=>'','status'=>'');
+            $data = array('data'=>'','msg'=>'User Sucessfully Updated','status'=>'');
+            if($this->input->post('e_update_submit')){
+                $this->load->model('users');
+                $updatedata = $this->input->post();
+                $this->users->update_user($updatedata);
+                $this->details();
+                
+            }
+            
+            }
+            
+            public function update_status(){
+                $this->load->model('hospitals');
+                $status = $this->input->post('status');
+                if($status == "Inactive"){
+                    $status = 1;
+                    
+                }elseif($status == "Active"){
+                    $status = 0;
+                    
+                }
+                $entity_id = $this->input->post('id');
+                $this->hospitals->update_user_status($entity_id,$status);
+                
+                }
     
     public function get_cities() {
         

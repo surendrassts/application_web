@@ -44,6 +44,58 @@ class Hospitals extends CI_Model{
         }
     }
     
+    function edit_hospital($entity_id){
+        
+        
+        $query = $this->db->query("select e.*,eb.* from entities as e left join entity_branches as eb on e.id = eb.entity_id  where e.id='$entity_id'");
+        $result = $query->result();
+        
+        
+        $query = $this->db->query("select * from entity_specializations where entity_id = '$entity_id'");
+        $result['specializations'] = $query->result();
+        return $result;
+        
+        
+    }
+    
+    function update_hospital($updatedata){
+       
+        $data =array(
+        "first_name" => $updatedata['e_firstname'],
+        "last_name" => $updatedata['e_lastname'],
+        "user_email" => $updatedata['e_email'],
+        "user_mobile" => $updatedata['e_mobile'],
+        "user_status" => $updatedata['e_status'],
+        "blood_group" => $updatedata['e_blood_group']
+         );
+        if(isset($_POST['e_donation_status'])){
+            $data["blood_donation_status"] = $updatedata['e_donation_status'];
+            $data ["blood_group"] = $updatedata['e_blood_group'];
+            
+        }else{
+            $data["blood_donation_status"] = 0;
+            
+        }
+        $this->db->where('user_id', $updatedata['user_id']);
+        $this->db->update('users', $data);
+        
+        
+        $data =array(
+        "user_add_line1" => $updatedata['e_addressline1'],
+            "user_add_line2" => $updatedata['e_addressline2'],
+            "user_city" => $updatedata['e_city'],
+            "user_state" => $updatedata['e_state'],
+            "user_zipcode" => $updatedata['e_zipcode']
+                );
+        $this->db->where('user_id', $updatedata['user_id']);
+        $this->db->update('user_address', $data);
+        
+        
+    }
+    
+    
+    
+    
     function createHospital($reqdata){
         $this->db->trans_start();
         $result = FALSE;

@@ -182,7 +182,7 @@ class User extends CI_Controller {
            public function get_cities() {
                $this->load->model('users');
                $state_id = $this->input->post('state_id');
-               $this->hospitals->get_cities($state_id);
+               $this->users->get_cities($state_id);
                
            }
         

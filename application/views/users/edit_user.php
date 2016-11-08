@@ -41,25 +41,61 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <option value="<?php echo $state->id; ?>" <?php if($state->id == $data[0]->user_state){ echo "selected"; } ?>><?php echo $state->name; ?></option>
                                     <?php } ?>
                                 </select></td></tr>
-                        <tr><td style="width:20%">City:</td><td  style="width:80%"><select name="e_city" id="e_loc_city"></select></td></tr>
-                         <script>
+                           <tr><td style="width:20%">City:</td><td  style="width:80%"><select name="e_city" id="e_city"></select></td></tr>
+                          <script>
+                           
+                             $("#e_state").change(function(){
+                                 
+                                 url = "<?php echo base_url().'user/get_cities'; ?>";
+                                 state_id = $("#e_state").val();
+                                 GA.UTIL.getcities(url,state_id);
+                             });
+                                                            </script>
+                         
+                           <script>
                                 
                               $(window).load(function(){
                                   url = "<?php echo base_url().'user/get_cities'; ?>";
                                   state_id = $("#e_state").val();
-                                  GE.UTIL.getcities(url,state_id);
+                                  user_city = "<?php echo $data[0]->user_city; ?>";
+                                  GE.UTIL.getcities(url,state_id,user_city);
                               });
                                                             </script>
                         <tr><td style="width:20%">Zip Code:</td><td  style="width:80%"><input type="text" name="e_zipcode" id="e_loc_zipcode" value="<?php echo $data[0]->user_zipcode; ?>"/></td></tr>
                         <tr><td style="width:20%">Blood Donation Status:</td><td  style="width:80%"></td></tr>
-                        <tr><td style="width:20%">Willing to Donate Blood:</td><td  style="width:80%"><input type="checkbox" name="e_donation_status" id="e_donation_status" value="1"/></td></tr>
-                        <tr><td style="width:20%">Blood Group:</td><td  style="width:80%"><select name="e_blood_group" id="e_blood_group">
-                        <option value="A+">A+</option>
-                        <option value="A-">A-</option>
-                        <option value="B+">B+</option>
-                        <option value="B-">B-</option>
-                        <option value="O+">O+</option>
-                        <option value="O-">O-</option>
+                        <tr><td style="width:20%">Willing to Donate Blood:</td><td  style="width:80%"><input type="checkbox" name="e_donation_status" id="e_donation_status" value="1" <?php if($data[0]->blood_donation_status==1){echo "checked"; }?>/></td></tr>
+                        <tr><td style="width:20%">Blood Group:</td><td  style="width:80%"><select name="e_blood_group" id="e_blood_group" >
+                        <?php if($data[0]->blood_group=="A+"){?>
+                        <option value="A+" <?php  echo "selected"; ?>>A+</option>
+                       <?php  }else{ ?>
+                           <option value="A+">A+</option>
+                           <?php } ?>
+                           <?php if($data[0]->blood_group=="A-"){?>
+                           <option value="A-" <?php  echo "selected"; ?>>A-</option>
+                       <?php  }else{ ?>
+                           <option value="A-">A-</option>
+                           <?php } ?>
+                           <?php if($data[0]->blood_group=="B+"){?>
+                           <option value="B+" <?php  echo "selected"; ?>>B+</option>
+                       <?php  }else{ ?>
+                           <option value="B+">B+</option>
+                           <?php } ?>
+                               <?php if($data[0]->blood_group=="B-"){?>
+                           <option value="B-" <?php  echo "selected"; ?>>B-</option>
+                       <?php  }else{ ?>
+                           <option value="B-">B-</option>
+                           <?php } ?>
+                               <?php if($data[0]->blood_group=="O+"){?>
+                           <option value="O+" <?php  echo "selected"; ?>>O+</option>
+                       <?php  }else{ ?>
+                           <option value="O+">O+</option>
+                           <?php } ?>
+                               <?php if($data[0]->blood_group=="O-"){?>
+                           <option value="O-" <?php  echo "selected"; ?>>O-</option>
+                       <?php  }else{ ?>
+                           <option value="O-">O-</option>
+                           <?php } ?>
+                       
                         </select></td></tr>
                         
                         <tr><td style="width:20%"></td><td  style="width:80%"><input type="submit" name="e_update_submit" value="Update"/></td></tr>                        

@@ -152,6 +152,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                              </script>
                     
                 </td>
+                <td><a href="edit?entity_id=<?php echo $row->id; ?>"><?php echo $row->id; ?></a></td>
               </tr>
               <?php
               }?>              
