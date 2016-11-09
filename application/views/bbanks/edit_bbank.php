@@ -19,7 +19,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div><div  style="width:80%;float: left;">Content
                 <div class="<?php //echo $status;?>"><?php //echo $msg; ?></div>
                 
-                <form name="e_create_form" id="e_create_form" method="post" enctype="multipart/form-data" action="<?php echo base_url(); ?>hospital/update">
+                <form name="e_create_form" id="e_create_form" method="post" enctype="multipart/form-data" action="<?php echo base_url(); ?>bbank/update">
                     <table><tr><td style="width:20%"></td><td  style="width:80%"><input type="hidden" name="entity_id" id="e_name" value="<?php echo $data['entity']->result_array[0]['entity_id'] ?>"/></td></tr>
                         <tr><td style="width:20%">Name:</td><td  style="width:80%"><input type="text" name="e_name" id="e_name" value="<?php echo $data['entity']->result_array[0]['name'] ?>"/></td></tr>
                                 
@@ -50,7 +50,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <option value="<?php echo $state->id; ?>" <?php if($state->id == $data['entity']->result_array[0]['state']){ echo "selected"; } ?>><?php echo $state->name; ?></option>
                                     <?php } ?>
                                 </select></td></tr>
-                        
                         <script>
                             $(window).load(function(){
                                 url = "<?php echo base_url().'hospital/get_cities'; ?>";

@@ -44,6 +44,7 @@ class Hospitals extends CI_Model{
         }
     }
     
+   
     function edit_hospital($entity_id){
         
         
@@ -70,35 +71,48 @@ class Hospitals extends CI_Model{
     function update_hospital($updatedata){
        
         $data =array(
-        "first_name" => $updatedata['e_firstname'],
-        "last_name" => $updatedata['e_lastname'],
-        "user_email" => $updatedata['e_email'],
-        "user_mobile" => $updatedata['e_mobile'],
-        "user_status" => $updatedata['e_status'],
-        "blood_group" => $updatedata['e_blood_group']
+        "name" => $updatedata['e_name'],
+        "description" => $updatedata['e_description'],
+        "website" => $updatedata['e_website']
          );
-        if(isset($_POST['e_donation_status'])){
-            $data["blood_donation_status"] = $updatedata['e_donation_status'];
-            $data ["blood_group"] = $updatedata['e_blood_group'];
-            
-        }else{
-            $data["blood_donation_status"] = 0;
-            
+       
+        $this->db->where('id', $updatedata['entity_id']);
+        $result = $this->db->update('entities', $data);
+        
+        for($i=0; $i<=sizeof($updatedata['e_spe'])-1; $i++){
+        
+        $data = array(
+            "addressline1" => $updatedata['e_spe'][$i]
+                );
+        /*
+        $this->db->where('id', $updatedata['entity_id']);
+        $result = $this->db->update('entities', $data);
+        */
         }
-        $this->db->where('user_id', $updatedata['user_id']);
-        $this->db->update('users', $data);
+        
         
         
         $data =array(
-        "user_add_line1" => $updatedata['e_addressline1'],
-            "user_add_line2" => $updatedata['e_addressline2'],
-            "user_city" => $updatedata['e_city'],
-            "user_state" => $updatedata['e_state'],
-            "user_zipcode" => $updatedata['e_zipcode']
+        "name" => $updatedata['e_name'],
+            "addressline1" => $updatedata['e_loc_addressline1'],
+            "addressline2" => $updatedata['e_loc_addressline2'],
+            "city" => $updatedata['e_loc_city'],
+            "state" => $updatedata['e_loc_state'],
+            "zipcode" => $updatedata['e_loc_zipcode'],
+            "poc_name" => $updatedata['e_poc_firstname'].$updatedata['e_poc_lastname'],
+            "mobile" => $updatedata['e_poc_mobile'],
+            "landline" => $updatedata['e_loc_phone'],
+            "email" => $updatedata['e_poc_email'],
+            
                 );
-        $this->db->where('user_id', $updatedata['user_id']);
-        $this->db->update('user_address', $data);
+         $this->db->where('entity_id', $updatedata['entity_id']);
+         
         
+         $result = $this->db->update('entity_branches', $data);
+         
+         if($result){
+             echo "Sucessfully updated";
+         }
         
     }
     

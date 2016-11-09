@@ -45,6 +45,41 @@ class Bbank extends CI_Controller {
             $this->load->view('bbanks/details',$data);
         }
         
+        
+        
+         public function edit(){
+             $data = array('data'=>'','msg'=>'','status'=>'');
+            $entity_id = $_GET['entity_id'];
+            $this->load->model('hospitals');
+            $result = $this->hospitals->edit_hospital($entity_id);
+            $data = array("data"=>$result);
+            $result_states =  $this->hospitals->get_states();
+            $data['states'] = $result_states;
+            $result = $this->hospitals->getSpecialisation();
+            $data['spe_types'] = $result;
+            $result_states =  $this->hospitals->get_states();
+            $data['states'] = $result_states;
+            //print_r($data);
+            $this->load->view('hospitals/edit_hospital',$data);
+            
+         }
+         
+         
+         
+         
+        public function update(){
+            $data = array('data'=>'','msg'=>'','status'=>'');
+            $data = array('data'=>'','msg'=>'User Sucessfully Updated','status'=>'');
+            if($this->input->post('e_update_submit')){
+                $this->load->model('hospitals');
+                $updatedata = $this->input->post();
+                $this->hospitals->update_hospital($updatedata);
+                $this->details();
+                
+            }
+            
+            }
+        
         public function create() {            
             $this->load->helper('url');
             $url_data['page_name'] = $this->uri->segment(2);

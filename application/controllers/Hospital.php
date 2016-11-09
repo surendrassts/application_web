@@ -177,13 +177,15 @@ class Hospital extends CI_Controller {
          }
          
          
+         
+         
         public function update(){
             $data = array('data'=>'','msg'=>'','status'=>'');
             $data = array('data'=>'','msg'=>'User Sucessfully Updated','status'=>'');
             if($this->input->post('e_update_submit')){
-                $this->load->model('users');
+                $this->load->model('hospitals');
                 $updatedata = $this->input->post();
-                $this->users->update_user($updatedata);
+                $this->hospitals->update_hospital($updatedata);
                 $this->details();
                 
             }
