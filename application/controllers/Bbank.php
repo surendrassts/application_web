@@ -50,17 +50,17 @@ class Bbank extends CI_Controller {
          public function edit(){
              $data = array('data'=>'','msg'=>'','status'=>'');
             $entity_id = $_GET['entity_id'];
-            $this->load->model('hospitals');
-            $result = $this->hospitals->edit_hospital($entity_id);
+            $this->load->model('bbanks');
+            $result = $this->bbanks->edit_bbank($entity_id);
             $data = array("data"=>$result);
-            $result_states =  $this->hospitals->get_states();
+            $result_states =  $this->bbanks->get_states();
             $data['states'] = $result_states;
-            $result = $this->hospitals->getSpecialisation();
+            $result = $this->bbanks->getSpecialisation();
             $data['spe_types'] = $result;
-            $result_states =  $this->hospitals->get_states();
+            $result_states =  $this->bbanks->get_states();
             $data['states'] = $result_states;
             //print_r($data);
-            $this->load->view('hospitals/edit_hospital',$data);
+            $this->load->view('bbanks/edit_bbank',$data);
             
          }
          
@@ -71,9 +71,9 @@ class Bbank extends CI_Controller {
             $data = array('data'=>'','msg'=>'','status'=>'');
             $data = array('data'=>'','msg'=>'User Sucessfully Updated','status'=>'');
             if($this->input->post('e_update_submit')){
-                $this->load->model('hospitals');
+                $this->load->model('bbanks');
                 $updatedata = $this->input->post();
-                $this->hospitals->update_hospital($updatedata);
+                $this->bbanks->update_bbank($updatedata);
                 $this->details();
                 
             }

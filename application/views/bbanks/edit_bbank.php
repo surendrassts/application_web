@@ -16,7 +16,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div id="body">
             <div style="width:20%;float: left;">Menu
                  <?php $this->load->view('common_view.php'); ?>
-            </div><div  style="width:80%;float: left;">Content
+            </div><div  style="width:80%;float: left;">Content  <?php     print_r($data['spe']->result_array); ?>
                 <div class="<?php //echo $status;?>"><?php //echo $msg; ?></div>
                 
                 <form name="e_create_form" id="e_create_form" method="post" enctype="multipart/form-data" action="<?php echo base_url(); ?>bbank/update">
@@ -24,10 +24,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tr><td style="width:20%">Name:</td><td  style="width:80%"><input type="text" name="e_name" id="e_name" value="<?php echo $data['entity']->result_array[0]['name'] ?>"/></td></tr>
                                 
                          <tr><td style="width:20%">Select Specislisation:</td>
-                                    
+                            
+                       
                                     <td  style="width:80%">
                                         <select name="e_spe[]" id="spe" multiple>
                                             <option value="">Select Specialization's.. </option>
+                                            
                                     <?php foreach ($spe_types as $spe){?>   
                                             <option value="<?php echo $spe->id; ?>" <?php foreach ($data['spe']->result_array as $specialization){if(in_array($spe->id,$specialization)){echo "selected";}}?>><?php echo $spe->name; ?></option>
                                                 <?php } ?>

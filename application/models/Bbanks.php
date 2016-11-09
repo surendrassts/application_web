@@ -68,7 +68,7 @@ class Bbanks extends CI_Model{
     
     
        
-    function edit_hospital($entity_id){
+    function edit_bbank($entity_id){
         
         
         $query1 = $this->db->query("select e.*,eb.* from entities as e left join entity_branches as eb on e.id = eb.entity_id  where e.id='$entity_id'");
@@ -91,7 +91,7 @@ class Bbanks extends CI_Model{
         
     }
     
-    function update_hospital($updatedata){
+    function update_bbank($updatedata){
        
         $data =array(
         "name" => $updatedata['e_name'],
