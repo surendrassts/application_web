@@ -128,6 +128,38 @@ class Pharmacy extends CI_Controller {
             $this->load->view('pharmacys/create',$data);
         }
         
+        
+         public function edit(){
+             $data = array('data'=>'','msg'=>'','status'=>'');
+            $entity_id = $_GET['entity_id'];
+            $this->load->model('pharmacys');
+            $result = $this->pharmacys->edit_pharmacy($entity_id);
+            $data = array("data"=>$result);
+            $result_states =  $this->pharmacys->get_states();
+            $data['states'] = $result_states;
+            $result_states =  $this->pharmacys->get_states();
+            $data['states'] = $result_states;
+            //print_r($data);
+            $this->load->view('pharmacys/edit_pharmacy',$data);
+            
+         }
+         
+         
+         
+         
+        public function update(){
+            $data = array('data'=>'','msg'=>'','status'=>'');
+            $data = array('data'=>'','msg'=>'User Sucessfully Updated','status'=>'');
+            if($this->input->post('e_update_submit')){
+                $this->load->model('pharmacys');
+                $updatedata = $this->input->post();
+                $this->pharmacys->update_pharmacy($updatedata);
+                $this->details();
+                
+            }
+            
+            }
+        
             public function get_cities() {
         
         $this->load->model('pharmacys');

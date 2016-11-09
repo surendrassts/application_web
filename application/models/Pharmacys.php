@@ -34,6 +34,55 @@ class Pharmacys extends CI_Model{
         return $result;
     }
     
+    
+        function edit_pharmacy($entity_id){
+        
+        
+        $query1 = $this->db->query("select e.*,eb.* from entities as e left join entity_branches as eb on e.id = eb.entity_id  where e.id='$entity_id'");
+        $result['entity'] = $query1->result_array();
+        $query2 = $this->db->query("select * from entity_specializations where entity_id = '$entity_id'");
+        $result = $query2->result_array();
+        if($result){
+        $result['spe'] = $result;
+        }
+        return array('entity'=>$query1,'spe'=>$query2);
+        
+        }
+        function update_pharmacy($updatedata){
+       
+        $data =array(
+        "name" => $updatedata['e_name'],
+        "description" => $updatedata['e_description'],
+        "website" => $updatedata['e_website']
+         );
+       
+        $this->db->where('id', $updatedata['entity_id']);
+        $result = $this->db->update('entities', $data);
+        
+       
+        
+        $data =array(
+        "name" => $updatedata['e_name'],
+            "addressline1" => $updatedata['e_loc_addressline1'],
+            "addressline2" => $updatedata['e_loc_addressline2'],
+            "city" => $updatedata['e_loc_city'],
+            "state" => $updatedata['e_loc_state'],
+            "zipcode" => $updatedata['e_loc_zipcode'],
+            "poc_name" => $updatedata['e_poc_firstname'].$updatedata['e_poc_lastname'],
+            "mobile" => $updatedata['e_poc_mobile'],
+            "landline" => $updatedata['e_loc_phone'],
+            "email" => $updatedata['e_poc_email'],
+            
+                );
+         $this->db->where('entity_id', $updatedata['entity_id']);
+         $result = $this->db->update('entity_branches', $data);
+         if($result){
+             echo "Sucessfully updated";
+         }
+        
+    }
+    
+    
     function createPharmacy($reqdata){
         $this->db->trans_start();
         $result = FALSE;

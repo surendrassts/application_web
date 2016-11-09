@@ -14,9 +14,7 @@ class Doctor extends CI_Controller {
             @session_start();
         }
         
-        public function details() { 
-            
-            
+        public function details() {
             $this->load->model('users');
             $search_data = array();
             $search_data['k_search'] = '';
@@ -113,6 +111,49 @@ class Doctor extends CI_Controller {
              $data['states'] = $result_states;
             $this->load->view('doctors/create',$data);
         }
+        
+         public function edit(){
+             $data = array('data'=>'','msg'=>'','status'=>'');
+            $entity_id = $_GET['entity_id'];
+            $this->load->model('users');
+             $this->load->model('specialities');
+            $result = $this->users->edit_doctor($entity_id);
+            $data = array("data"=>$result);
+            $result_states =  $this->users->get_states();
+            $data['states'] = $result_states;
+            $entity_services = $this->specialities->get_entity_specialities_services($this->config->item('doctors_entity_type'));
+            $data['entity_services'] = $entity_services;
+            $entity_roles = $this->users->get_entity_roles($this->config->item('doctors_entity_type'));
+            $data['entity_roles'] = $entity_roles;
+            $result_states =  $this->users->get_states();
+            $data['states'] = $result_states;
+            $this->load->view('doctors/edit_doctor',$data);
+            
+         }
+         
+         
+         
+         
+        public function update(){
+            $data = array('data'=>'','msg'=>'','status'=>'');
+            $data = array('data'=>'','msg'=>'User Sucessfully Updated','status'=>'');
+            if($this->input->post('e_update_submit')){
+                $this->load->model('users');
+                $updatedata = $this->input->post();
+                $this->users->update_doctor($updatedata);
+                $this->details();
+                
+            }
+        
+        }
+        
+               public function get_cities() {
+                   $this->load->model('users');
+                   $state_id = $this->input->post('state_id');
+                   $this->users->get_cities($state_id);
+                   
+               }
+        
         
         public function update_status(){
             $this->load->model('users');

@@ -52,23 +52,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <option value="<?php echo $state->id; ?>" <?php if($state->id == $data['entity']->result_array[0]['state']){ echo "selected"; } ?>><?php echo $state->name; ?></option>
                                     <?php } ?>
                                 </select></td></tr>
-                        <script>
-                            $(window).load(function(){
-                                url = "<?php echo base_url().'hospital/get_cities'; ?>";
-                                state_id = $("#e_loc_state").val();
-                                
-                                user_city = "<?php echo $data['entity']->result_array[0]['city'] ?> ";
-                                GB.UTIL.getcities(url,state_id,user_city);
-                            });
-                                                    </script>
-                                                    <script>
+                        <tr><td style="width:20%">City:</td><td  style="width:80%"><select name="e_loc_city" id="e_loc_city"></select></td></tr>
+                         <script>
                                                         $("#e_loc_state").change(function(){
-                                                            url = "<?php echo base_url().'hospital/get_cities'; ?>";
+                                                            url = "<?php echo base_url().'bbank/get_cities'; ?>";
                                                             state_id = $("#e_loc_state").val();
                                                             GC.UTIL.getcities(url,state_id);
                                                         });
                                                      </script>
-                        <tr><td style="width:20%">City:</td><td  style="width:80%"><select name="e_loc_city" id="e_loc_city"></select></td></tr>
+                        <script>
+                            $(window).load(function(){
+                                url = "<?php echo base_url().'bbank/get_cities'; ?>";
+                                state_id = $("#e_loc_state").val();
+                                
+                                user_city = "<?php echo $data['entity']->result_array[0]['city'] ?>";
+                                GB.UTIL.getcities(url,state_id,user_city);
+                            });
+                                                    </script>
+                                                   
+                        
                         <tr><td style="width:20%">Zip Code:</td><td  style="width:80%"><input type="text" name="e_loc_zipcode" id="e_loc_zipcode" value="<?php echo $data['entity']->result_array[0]['zipcode'] ?>" /></td></tr>
                         <tr><td style="width:20%">Phone:</td><td  style="width:80%"><input type="text" name="e_loc_phone" id="e_loc_phone" value="<?php echo $data['entity']->result_array[0]['landline'] ?>"/></td></tr>
                         <tr><td style="width:20%">Contact Person Details for This Location:</td><td  style="width:80%"></td></tr>

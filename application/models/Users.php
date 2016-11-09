@@ -108,6 +108,70 @@ class Users extends CI_Model{
     }
     
     
+      
+    function edit_doctor($entity_id){
+        $query1 = $this->db->query("select u.*,ua.*,es.*,ur.*  from users as u inner join user_address as ua on u.user_id = ua.user_id left join entity_specializations as es on u.user_id = es.user_id left join user_roles as ur on u.user_id = ur.user_id where u.user_id = '25'");
+        $result = $query1->result_array();
+        return($result);
+        
+    }
+    
+    function update_doctor($updatedata){
+        $data =array(
+        "first_name" => $updatedata['e_firstname'],
+        "last_name" => $updatedata['e_lastname'],
+        "user_email" => $updatedata['e_email'],
+        "user_mobile" => $updatedata['e_mobile'],
+        "user_status" => $updatedata['e_status'],
+        "blood_group" => $updatedata['e_blood_group']
+         );
+        if(isset($_POST['e_donation_status'])){
+            $data["blood_donation_status"] = $updatedata['e_donation_status'];
+            $data ["blood_group"] = $updatedata['e_blood_group'];
+            
+        }else{
+            $data["blood_donation_status"] = 0;
+            
+        }
+        $this->db->where('user_id', $updatedata['user_id']);
+        $this->db->update('users', $data);
+         /*
+        for($i=0; $i<=sizeof($updatedata['e_spe'])-1; $i++){
+        
+           
+        $data = array(
+            "addressline1" => $updatedata['e_spe'][$i]
+                );
+        
+        $this->db->where('id', $updatedata['entity_id']);
+        $result = $this->db->update('entities', $data);
+       
+        }
+        
+         */
+        
+        $data =array(
+        "user_add_line1" => $updatedata['e_loc_addressline1'],
+            "user_add_line2" => $updatedata['e_loc_addressline2'],
+            "user_city" => $updatedata['e_loc_city'],
+            "user_state" => $updatedata['e_loc_state'],
+            "user_zipcode" => $updatedata['e_loc_zipcode'],
+            );
+        $this->db->where('user_id', $updatedata['user_id']);
+        $result = $this->db->update('user_address', $data);
+        if($result){
+            echo "Sucessfully updated";
+            print_r($data);
+            
+        }else{
+            
+            echo "fail";
+        }
+        
+        }
+    
+    
+    
     function getAllUsers($search_data){
         if(!empty ($search_data['k_search'])){
             $query = $this->db->query("select * from users u join user_roles ur on u.user_id=ur.user_id join roles r on ur.role_id=r.id where (first_name like '%".$search_data['k_search']."%' or last_name like '%".$search_data['k_search']."%'  or user_email like '%".$search_data['k_search']."%') and r.entity_type is NULL");
@@ -202,6 +266,7 @@ class Users extends CI_Model{
             $query = $this->db->query("select * from users u join user_roles ur on u.user_id=ur.user_id join roles r on ur.role_id=r.id where (u.first_name like '%".$search_data['k_search']."%' or u.last_name like '%".$search_data['k_search']."%'  or u.user_email like '%".$search_data['k_search']."%') and r.entity_type='".$this->config->item('doctors_entity_type')."'");
         }  else {
             $query = $this->db->query("select * from users u join user_roles ur on u.user_id=ur.user_id join roles r on ur.role_id=r.id where r.entity_type='".$this->config->item('doctors_entity_type')."'");
+            
         }
         $result = $query->result();
         return $result;

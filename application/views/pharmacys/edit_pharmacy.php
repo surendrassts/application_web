@@ -19,20 +19,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div><div  style="width:80%;float: left;">Content
                 <div class="<?php //echo $status;?>"><?php //echo $msg; ?></div>
                 
-                <form name="e_create_form" id="e_create_form" method="post" enctype="multipart/form-data" action="<?php echo base_url(); ?>hospital/update">
+                <form name="e_create_form" id="e_create_form" method="post" enctype="multipart/form-data" action="<?php echo base_url(); ?>pharmacy/update">
                     <table><tr><td style="width:20%"></td><td  style="width:80%"><input type="hidden" name="entity_id" id="e_name" value="<?php echo $data['entity']->result_array[0]['entity_id'] ?>"/></td></tr>
                         <tr><td style="width:20%">Name:</td><td  style="width:80%"><input type="text" name="e_name" id="e_name" value="<?php echo $data['entity']->result_array[0]['name'] ?>"/></td></tr>
-                                
-                         <tr><td style="width:20%">Select Specislisation:</td>
-                                    
-                                    <td  style="width:80%">
-                                        <select name="e_spe[]" id="spe" multiple>
-                                            <option value="">Select Specialization's.. </option>
-                                    <?php foreach ($spe_types as $spe){?>   
-                                            <option value="<?php echo $spe->id; ?>" <?php foreach ($data['spe']->result_array as $specialization){if(in_array($spe->id,$specialization)){echo "selected";}}?>><?php echo $spe->name; ?></option>
-                                                <?php } ?>
-                                            </select>* Note. Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.
-                            </td></td></tr>
                         <tr><td style="width:20%">Description:</td><td  style="width:80%"><textarea name="e_description" id="e_description" value=""><?php echo $data['entity']->result_array[0]['description'] ?></textarea></td></tr>
                         <tr><td style="width:20%">Status:</td><td  style="width:80%"><select name="e_status" id="e_status">
                         <option value="">Choose Status...</option>
@@ -50,24 +39,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <option value="<?php echo $state->id; ?>" <?php if($state->id == $data['entity']->result_array[0]['state']){ echo "selected"; } ?>><?php echo $state->name; ?></option>
                                     <?php } ?>
                                 </select></td></tr>
-                        
+                        <tr><td style="width:20%">City:</td><td  style="width:80%"><select name="e_loc_city" id="e_loc_city"></select></td></tr>
                         <script>
-                            $(window).load(function(){
-                                url = "<?php echo base_url().'hospital/get_cities'; ?>";
+                            $("#e_loc_state").change(function(){
+                                url = "<?php echo base_url().'pharmacy/get_cities'; ?>";
                                 state_id = $("#e_loc_state").val();
-                                
-                                user_city = "<?php echo $data['entity']->result_array[0]['city'] ?>";
-                                GB.UTIL.getcities(url,state_id,user_city);
+                                GC.UTIL.getcities(url,state_id);
                             });
                                                     </script>
                                                     <script>
-                                                        $("#e_loc_state").change(function(){
-                                                            url = "<?php echo base_url().'hospital/get_cities'; ?>";
+                                                        $(window).load(function(){
+                                                            url = "<?php echo base_url().'pharmacy/get_cities'; ?>";
                                                             state_id = $("#e_loc_state").val();
-                                                            GC.UTIL.getcities(url,state_id);
+                                                            user_city = "<?php echo $data['entity']->result_array[0]['city'] ?>";
+                                                            GB.UTIL.getcities(url,state_id,user_city);
                                                         });
-                                                     </script>
-                        <tr><td style="width:20%">City:</td><td  style="width:80%"><select name="e_loc_city" id="e_loc_city"></select></td></tr>
+                                                    </script>
+                                                    
+                        
                         <tr><td style="width:20%">Zip Code:</td><td  style="width:80%"><input type="text" name="e_loc_zipcode" id="e_loc_zipcode" value="<?php echo $data['entity']->result_array[0]['zipcode'] ?>" /></td></tr>
                         <tr><td style="width:20%">Phone:</td><td  style="width:80%"><input type="text" name="e_loc_phone" id="e_loc_phone" value="<?php echo $data['entity']->result_array[0]['landline'] ?>"/></td></tr>
                         <tr><td style="width:20%">Contact Person Details for This Location:</td><td  style="width:80%"></td></tr>
