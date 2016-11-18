@@ -5,7 +5,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
 	<meta charset="utf-8">
 	<title>Welcome to CodeIgniter</title>
+          <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>      
+  <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+  
+  <!-- jQuery Form Validation code -->
 
+ 
 
 </head>
 <body>
@@ -22,11 +28,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <table>
                         <tr><td style="width:20%"></td><td  style="width:80%"><input type="hidden" name="user_id" id="e_id" value="<?php echo $data[0]->user_id; ?>"/></td></tr>
                         <tr><td style="width:20%">First Name:</td><td  style="width:80%"><input type="text" name="e_firstname" id="e_firstname" value="<?php echo $data[0]->first_name; ?>"/></td></tr>
-                        <tr><td style="width:20%">Last Name:</td><td  style="width:80%"><input type="text" name="e_lastname" id="e_lastname" value="<?php echo $data[0]->first_name; ?>" /></td></tr>
+                        <tr><td style="width:20%">Last Name:</td><td  style="width:80%"><input type="text" name="e_lastname" id="e_lastname" value="<?php echo $data[0]->last_name; ?>" /></td></tr>
                         <tr><td style="width:20%">Email:</td><td  style="width:80%"><input type="text" name="e_email" id="e_email" value="<?php echo $data[0]->user_email; ?>"/></td></tr>
                         <tr><td style="width:20%">Mobile:</td><td  style="width:80%">+91-<input type="text" name="e_mobile" id="e_mobile" value="<?php echo $data[0]->user_mobile; ?>"/></td></tr>                        
-                        <tr><td style="width:20%">New Password:</td><td  style="width:80%"><input type="text" name="e_password" id="e_password" value="<?php echo $data[0]->user_password; ?>"/></td></tr>
-                        <tr><td style="width:20%">Confirm Password:</td><td  style="width:80%"><input type="text" name="e_c_password" id="e_c_password"/></td></tr>
+                        <tr><td style="width:20%">Password:</td><td  style="width:80%"><input type="text" name="e_password" id="e_password" value="<?php echo $data[0]->user_password; ?>"/></td></tr>
+                        <tr><td style="width:20%">Confirm Password:</td><td  style="width:80%"><input type="text" name="e_c_password" id="e_c_password" value="<?php echo $data[0]->user_password; ?>"/></td></tr>
                         <tr><td style="width:20%">Status:</td><td  style="width:80%"><select name="e_status" id="e_status">
                         <option value="0">Block</option>
                         <option value="1">Active</option>                        
@@ -61,7 +67,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                   GE.UTIL.getcities(url,state_id,user_city);
                               });
                                                             </script>
-                        <tr><td style="width:20%">Zip Code:</td><td  style="width:80%"><input type="text" name="e_zipcode" id="e_loc_zipcode" value="<?php echo $data[0]->user_zipcode; ?>"/></td></tr>
+                        <tr><td style="width:20%">Zip Code:</td><td  style="width:80%"><input type="text" name="e_zipcode" id="e_zipcode" value="<?php echo $data[0]->user_zipcode; ?>"/></td></tr>
                         <tr><td style="width:20%">Blood Donation Status:</td><td  style="width:80%"></td></tr>
                         <tr><td style="width:20%">Willing to Donate Blood:</td><td  style="width:80%"><input type="checkbox" name="e_donation_status" id="e_donation_status" value="1" <?php if($data[0]->blood_donation_status==1){echo "checked"; }?>/></td></tr>
                         <tr><td style="width:20%">Blood Group:</td><td  style="width:80%"><select name="e_blood_group" id="e_blood_group" >

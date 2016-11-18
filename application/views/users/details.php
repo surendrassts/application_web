@@ -155,7 +155,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                });
                              </script>
                  </td>
-                 <td><a href="edit?user_id=<?php echo $row->user_id; ?>"><?php echo $row->user_id; ?></a></td>
+                 <td><a href="edit?user_id=<?php echo $row->user_id; ?>">Edit</a></td>
               </tr>
                   <?php
                   }?>
