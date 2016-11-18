@@ -74,7 +74,6 @@ getcities: function(url,state_id){
 var GB = {};
 GB.UTIL ={
     getcities: function(url,state_id,user_city){
-        alert(user_city);
         $.ajax({
         type:"POST",
         url : url,

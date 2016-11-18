@@ -6,6 +6,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     
     <meta charset="utf-8">
     <title>Welcome to CodeIgniter</title>
+  <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+  <script type='text/javascript' src="<?php echo $this->config->item('assets_base_url');?>assets/js/common.js"></script>
 </head>
 <body>
           
