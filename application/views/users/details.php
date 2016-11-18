@@ -3,8 +3,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
-    <script type='text/javascript' src="<?php echo $this->config->item('assets_base_url');?>assets/js/common.js"></script>
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type='text/javascript' src="<?php echo $this->config->item('assets_base_url');?>assets/js/common.js"></script>
   
 	<meta charset="utf-8">
 	<title>Welcome to CodeIgniter</title>
@@ -88,7 +89,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div style="text-align:right;">Welcome <?php echo $_SESSION['user']->user_email;?> | <a href="<?php echo base_url();?>user/logout">Logout</a></div></div>
 	<div id="body">
             <div style="width:20%;float: left;">Menu
-                <ul style="list-style: none;">
+                <?php $this->load->view('common_view.php'); ?>
+              <!--  <ul style="list-style: none;">
                     <li><a href="<?php echo base_url();?>user/details">Users</a>
                         <ul>
                             <li><a href="<?php echo base_url();?>user/create">Create</a></li>
@@ -121,6 +123,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </li>
                     <li><a href="">Profile</a></li>                    
                 </ul>
+              -->
             </div><div  style="width:80%;float: left;">Content
                 <form name="k_search_f" id="k_search_f" method="post">
                     <input type="text" name="k_search" id="k_search" value="<?php echo $k_search; ?>"/>
@@ -132,6 +135,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <th>Last Name</th>
                 <th>Email</th>
                 <th>Status</th>
+                <th>Edit</th>
               </tr>
               <?php foreach($data as $row){
               ?>
@@ -151,6 +155,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                });
                              </script>
                  </td>
+                 <td><a href="edit?user_id=<?php echo $row->user_id; ?>">Edit</a></td>
               </tr>
                   <?php
                   }?>

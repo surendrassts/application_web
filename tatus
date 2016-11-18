@@ -1,0 +1,208 @@
+[1mdiff --git a/application/controllers/User.php b/application/controllers/User.php[m
+[1mindex 4f94a03..124fc92 100644[m
+[1m--- a/application/controllers/User.php[m
+[1m+++ b/application/controllers/User.php[m
+[36m@@ -142,22 +142,49 @@[m [mclass User extends CI_Controller {[m
+         }[m
+         [m
+         [m
+[31m-        [m
+[31m-    public function update_status(){[m
+[31m-        [m
+[31m-    $this->load->model('users'); [m
+[31m-    $status = $this->input->post('status');[m
+[31m-    if($status == "Inactive"){[m
+[31m-        $status = 1;[m
+[31m-    }elseif($status == "Active"){[m
+[31m-       $status = 0;[m
+[31m-    }[m
+[31m-    $course_id = $this->input->post('id');[m
+[31m-    $this->users->update_user_status($course_id,$status);[m
+[31m-}[m
+[31m-        [m
+[32m+[m[32m        public function edit(){[m
+[32m+[m[32m            $user_id = $_GET['user_id'];[m
+[32m+[m[32m            $this->load->model('users');[m
+[32m+[m[32m            $result = $this->users->edit_user($user_id);[m
+[32m+[m[32m            $data = array("data"=>$result);[m
+[32m+[m[32m            $result_states =  $this->users->get_states();[m
+[32m+[m[32m            $data['states'] = $result_states;[m
+[32m+[m[32m            $this->load->view('users/edit_user',$data);[m
+[32m+[m[41m            [m
+[32m+[m[32m        }[m
+[32m+[m[32m        public function update(){[m
+[32m+[m[32m            $data = array('data'=>'','msg'=>'User Sucessfully Updated','status'=>'');[m
+[32m+[m[32m            if($this->input->post('e_update_submit')){[m
+[32m+[m[32m                $this->load->model('users');[m
+[32m+[m[32m                $updatedata = $this->input->post();[m
+[32m+[m[32m                $this->users->update_user($updatedata);[m
+[32m+[m[32m                $this->details();[m
+[32m+[m[41m                [m
+[32m+[m[32m            }[m
+[32m+[m[41m            [m
+[32m+[m[32m            }[m
+[32m+[m[32m            public function update_status(){[m
+[32m+[m[32m                $this->load->model('users');[m
+[32m+[m[32m                $status = $this->input->post('status');[m
+[32m+[m[32m                if($status == "Inactive"){[m
+[32m+[m[32m                    $status = 1;[m
+[32m+[m[41m                    [m
+[32m+[m[32m                }elseif($status == "Active"){[m
+[32m+[m[32m                    $status = 0;[m
+[32m+[m[41m                    [m
+[32m+[m[32m                }[m
+[32m+[m[32m                $course_id = $this->input->post('id');[m
+[32m+[m[32m                $this->users->update_user_status($course_id,$status);[m
+[32m+[m[41m                [m
+[32m+[m[32m                }[m
+         [m
+         [m
+[32m+[m[32m           public function get_cities() {[m
+[32m+[m[32m               $this->load->model('users');[m
+[32m+[m[32m               $state_id = $this->input->post('state_id');[m
+[32m+[m[32m               $this->hospitals->get_cities($state_id);[m
+[32m+[m[41m               [m
+[32m+[m[32m           }[m
+         [m
+         [m
+         [m
+[1mdiff --git a/application/models/Users.php b/application/models/Users.php[m
+[1mindex b94477b..dff6ec9 100644[m
+[1m--- a/application/models/Users.php[m
+[1m+++ b/application/models/Users.php[m
+[36m@@ -62,6 +62,42 @@[m [mclass Users extends CI_Model{[m
+             return '';[m
+         }[m
+     }[m
+[32m+[m[32m    function edit_user($user_id){[m
+[32m+[m[41m        [m
+[32m+[m[41m        [m
+[32m+[m[32m        $query = $this->db->query("select a.*,b.* from users as a left join user_address as b on a.user_id = b.user_id where a.user_id='$user_id'");[m
+[32m+[m[32m        $result = $query->result();[m
+[32m+[m[32m        return $result;[m
+[32m+[m[41m        [m
+[32m+[m[41m        [m
+[32m+[m[32m    }[m
+[32m+[m[41m    [m
+[32m+[m[32m    function update_user($updatedata){[m
+[32m+[m[41m       [m
+[32m+[m[32m        $data =array([m
+[32m+[m[32m        "first_name" => $updatedata['e_firstname'],[m
+[32m+[m[32m        "last_name" => $updatedata['e_lastname'],[m
+[32m+[m[32m        "user_email" => $updatedata['e_email'],[m
+[32m+[m[32m        "user_mobile" => $updatedata['e_mobile'],[m
+[32m+[m[32m        "user_status" => $updatedata['e_status'],[m
+[32m+[m[32m          );[m
+[32m+[m[32m        $this->db->where('user_id', $updatedata['user_id']);[m
+[32m+[m[32m        $this->db->update('users', $data);[m
+[32m+[m[41m        [m
+[32m+[m[41m        [m
+[32m+[m[32m        $data =array([m
+[32m+[m[32m        "user_add_line1" => $updatedata['e_addressline1'],[m
+[32m+[m[32m            "user_add_line2" => $updatedata['e_addressline2'],[m
+[32m+[m[32m            "user_city" => $updatedata['e_city'],[m
+[32m+[m[32m            "user_state" => $updatedata['e_state'],[m
+[32m+[m[32m            "user_zipcode" => $updatedata['e_zipcode'],[m
+[32m+[m[32m            );[m
+[32m+[m[32m        $this->db->where('user_id', $updatedata['user_id']);[m
+[32m+[m[32m        $this->db->update('user_address', $data);[m
+[32m+[m[41m        [m
+[32m+[m[41m        [m
+[32m+[m[32m    }[m
+[32m+[m[41m    [m
+     [m
+     function getAllUsers($search_data){[m
+         if(!empty ($search_data['k_search'])){[m
+[36m@@ -194,10 +230,9 @@[m [mclass Users extends CI_Model{[m
+     [m
+     [m
+    public function get_cities($state_id){[m
+[31m-      [m
+[31m-        $query = $this->db->get_where('cities', array('state_id'=> $state_id,'status' => 1));[m
+[31m-        $data = $query->result();[m
+[31m-        $this->output->set_content_type('application/json')->set_output(json_encode($data));[m
+[32m+[m[32m       $query = $this->db->get_where('cities', array('state_id'=> $state_id,'status' => 1));[m
+[32m+[m[32m       $data = $query->result();[m
+[32m+[m[32m       $this->output->set_content_type('application/json')->set_output(json_encode($data));[m
+     }[m
+     [m
+    [m
+[1mdiff --git a/application/views/users/details.php b/application/views/users/details.php[m
+[1mindex 0db34ae..23067f4 100644[m
+[1m--- a/application/views/users/details.php[m
+[1m+++ b/application/views/users/details.php[m
+[36m@@ -89,7 +89,8 @@[m [mdefined('BASEPATH') OR exit('No direct script access allowed');[m
+         <div style="text-align:right;">Welcome <?php echo $_SESSION['user']->user_email;?> | <a href="<?php echo base_url();?>user/logout">Logout</a></div></div>[m
+ 	<div id="body">[m
+             <div style="width:20%;float: left;">Menu[m
+[31m-                <ul style="list-style: none;">[m
+[32m+[m[32m                <?php $this->load->view('common_view.php'); ?>[m
+[32m+[m[32m              <!--  <ul style="list-style: none;">[m
+                     <li><a href="<?php echo base_url();?>user/details">Users</a>[m
+                         <ul>[m
+                             <li><a href="<?php echo base_url();?>user/create">Create</a></li>[m
+[36m@@ -122,6 +123,7 @@[m [mdefined('BASEPATH') OR exit('No direct script access allowed');[m
+                     </li>[m
+                     <li><a href="">Profile</a></li>                    [m
+                 </ul>[m
+[32m+[m[32m              -->[m
+             </div><div  style="width:80%;float: left;">Content[m
+                 <form name="k_search_f" id="k_search_f" method="post">[m
+                     <input type="text" name="k_search" id="k_search" value="<?php echo $k_search; ?>"/>[m
+[36m@@ -133,6 +135,7 @@[m [mdefined('BASEPATH') OR exit('No direct script access allowed');[m
+                 <th>Last Name</th>[m
+                 <th>Email</th>[m
+                 <th>Status</th>[m
+[32m+[m[32m                <th>Edit</th>[m
+               </tr>[m
+               <?php foreach($data as $row){[m
+               ?>[m
+[36m@@ -152,6 +155,7 @@[m [mdefined('BASEPATH') OR exit('No direct script access allowed');[m
+                });[m
+                              </script>[m
+                  </td>[m
+[32m+[m[32m                 <td><a href="edit?user_id=<?php echo $row->user_id; ?>"><?php echo $row->user_id; ?></a></td>[m
+               </tr>[m
+                   <?php[m
+                   }?>[m
+[1mdiff --git a/assets/js/common.js b/assets/js/common.js[m
+[1mindex f9ac388..f9bff6f 100644[m
+[1m--- a/assets/js/common.js[m
+[1m+++ b/assets/js/common.js[m
+[36m@@ -45,6 +45,35 @@[m [mgetcities: function(url,state_id){[m
+ }[m
+ [m
+ [m
+[32m+[m[32mvar GE = {};[m
+[32m+[m[32mGE.UTIL ={[m
+[32m+[m[32mgetcities: function(url,state_id){[m
+[32m+[m[32m    alert(url);[m
+[32m+[m[32m    $('#e_city').empty();[m
+[32m+[m[32m    $.ajax({[m
+[32m+[m[32m        type:"POST",[m
+[32m+[m[32m        url : url,[m
+[32m+[m[32m        datatype: 'json',[m
+[32m+[m[32m        data: {"state_id":state_id},[m
+[32m+[m[32m        success: function(data){[m
+[32m+[m[32m            if((data.length)!=0){[m
+[32m+[m[32m                $.each(data,function(key,city)[m
+[32m+[m[32m                {[m
+[32m+[m[32m                    var opt = $("<option></option>");[m
+[32m+[m[32m                    $('#e_city').append(opt.attr("value",city.id).text(city.city_name));[m
+[32m+[m[32m                });[m
+[32m+[m[32m            }else{[m
+[32m+[m[32m                var opt = $('<option/>');[m
+[32m+[m[32m                opt.text('No Cities for this state');[m
+[32m+[m[32m                $('#e_city').append(opt);[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+[32m+[m[32m    });[m
+[32m+[m[41m    [m
+[32m+[m[41m [m
+[32m+[m[32m}[m
+[32m+[m[32m}[m
+[32m+[m
+ [m
+ [m
+    [m
+\ No newline at end of file[m
