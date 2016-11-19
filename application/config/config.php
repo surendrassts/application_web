@@ -23,7 +23,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/doctor_app_admin/index.php/';
+/* $config['base_url'] = 'http://localhost/doctor_app_admin/index.php/'; */
+$config['base_url'] = 'http://localhost/docsapp/index.php/';
+
 
 /*
 |--------------------------------------------------------------------------

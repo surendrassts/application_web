@@ -90,39 +90,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div style="text-align:right;">Welcome <?php echo $_SESSION['user']->user_email;?> | <a href="<?php echo base_url();?>user/logout">Logout</a></div></div>
 	<div id="body">
             <div style="width:20%;float: left;">Menu
-                <ul style="list-style: none;">
-                    <li><a href="<?php echo base_url();?>user/details">Users</a>
-                        <ul>
-                            <li><a href="<?php echo base_url();?>user/create">Create</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="<?php echo base_url();?>hospital/details">Hospitals</a>
-                        <ul>
-                            <li><a href="<?php echo base_url();?>hospital/create">Create</a></li>                            
-                        </ul>
-                    </li>
-                    <li><a href="<?php echo base_url();?>bbank/details">Blood Banks</a>
-                        <ul>
-                            <li><a href="<?php echo base_url();?>bbank/create">Create</a></li>                            
-                        </ul>
-                    </li>
-                    <li><a href="<?php echo base_url();?>pharmacy/details">Pharmacy</a>
-                        <ul>
-                            <li><a href="<?php echo base_url();?>pharmacy/create">Create</a></li>                            
-                        </ul>
-                    </li>
-                    <li><a href="<?php echo base_url();?>doctor/details">Doctors</a>
-                        <ul>
-                            <li><a href="<?php echo base_url();?>doctor/create">Create</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="<?php echo base_url();?>speciality/details">Specializations</a>
-                        <ul>
-                            <li><a href="<?php echo base_url();?>speciality/create">Create</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="">Profile</a></li>                    
-                </ul>
+                <?php $this->load->view('common_view.php'); ?>
             </div><div  style="width:80%;float: left;">Content
                 <form name="k_search_f" id="k_search_f" method="post"><input type="text" name="k_search" id="k_search" value="<?php echo $k_search; ?>"/><input type="submit" name="k_s_submit" id="k_s_submit" value="Submit"/><input type="submit" name="k_c_submit" id="k_c_submit" value="Clear"/></form>
             <table>
@@ -131,6 +99,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <th>Branch</th>
                 <th>City</th>
                 <th>Status</th>
+                <th>Edit</th>
               </tr>
               <?php 
                             
@@ -152,7 +121,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                              </script>
                     
                 </td>
-                <td><a href="edit?entity_id=<?php echo $row->id; ?>"><?php echo $row->id; ?></a></td>
+                <td><a href="edit?entity_id=<?php echo $row->id; ?>">Edit</a></td>
               </tr>
               <?php
               }?>              

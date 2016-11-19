@@ -37,6 +37,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <th>Branch</th>
                 <th>City</th>
                 <th>Status</th>
+                <th>Edit</th>
               </tr>
               <?php
               
@@ -58,7 +59,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                              </script>
                     
                 </td>
-                <td><a href="edit?entity_id=<?php echo $row->id; ?>"><?php echo $row->id; ?></a></td>
+                <td><a href="edit?entity_id=<?php echo $row->id; ?>">Edit</a></td>
               </tr>
               <?php
               }?>              

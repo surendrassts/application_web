@@ -35,13 +35,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <option value="<?php echo $spe->id; ?>" <?php foreach ($data['spe']->result_array as $specialization){if(in_array($spe->id,$specialization)){echo "selected";}}?>><?php echo $spe->name; ?></option>
                                                 <?php } ?>
                                             </select>* Note. Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.
-                            </td></td></tr>
+                        </td></td></tr>
                         <tr><td style="width:20%">Description:</td><td  style="width:80%"><textarea name="e_description" id="e_description" value=""><?php echo $data['entity']->result_array[0]['description'] ?></textarea></td></tr>
                         <tr><td style="width:20%">Status:</td><td  style="width:80%"><select name="e_status" id="e_status">
                         <option value="">Choose Status...</option>
                         <option value="0">Block</option>
                         <option value="1">Active</option>                        
-                    </select></td></tr>
+                        </select></td></tr>
                         <tr><td style="width:20%">Website:</td><td  style="width:80%"><input type="text" name="e_website" id="e_website"  value="<?php echo $data['entity']->result_array[0]['website'] ?>"/></td></tr>
                         <tr><td style="width:20%">Location Details:</td><td  style="width:80%"></td></tr>
                         <tr><td style="width:20%">Address line1:</td><td  style="width:80%"><input type="text" name="e_loc_addressline1" id="e_loc_addressline1"  value="<?php echo $data['entity']->result_array[0]['addressline1'] ?>"/></td></tr>

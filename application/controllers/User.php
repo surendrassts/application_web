@@ -138,6 +138,8 @@ class User extends CI_Controller {
             }
             $non_entity_roles = $this->users->getNonEntityRoles();
             $data['non_entity_roles'] = $non_entity_roles;
+            $result_states =  $this->users->get_states();
+            $data['states'] = $result_states;
             $this->load->view('users/create',$data);
         }
         

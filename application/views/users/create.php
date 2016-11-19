@@ -168,39 +168,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div style="text-align:right;">Welcome <?php echo $_SESSION['user']->user_email;?> | <a href="<?php echo base_url();?>user/logout">Logout</a></div></div>
 	<div id="body">
             <div style="width:20%;float: left;">Menu
-                <ul style="list-style: none;">
-                    <li><a href="<?php echo base_url();?>user/details">Users</a>
-                        <ul>
-                            <li><a href="<?php echo base_url();?>user/create">Create</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="<?php echo base_url();?>hospital/details">Hospitals</a>
-                        <ul>
-                            <li><a href="<?php echo base_url();?>hospital/create">Create</a></li>                            
-                        </ul>
-                    </li>
-                    <li><a href="<?php echo base_url();?>bbank/details">Blood Banks</a>
-                        <ul>
-                            <li><a href="<?php echo base_url();?>bbank/create">Create</a></li>                            
-                        </ul>
-                    </li>
-                    <li><a href="<?php echo base_url();?>pharmacy/details">Pharmacy</a>
-                        <ul>
-                            <li><a href="<?php echo base_url();?>pharmacy/create">Create</a></li>                            
-                        </ul>
-                    </li>
-                    <li><a href="<?php echo base_url();?>doctor/details">Doctors</a>
-                        <ul>
-                            <li><a href="<?php echo base_url();?>doctor/create">Create</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="<?php echo base_url();?>specialization/details">Specializations</a>
-                        <ul>
-                            <li><a href="<?php echo base_url();?>specialization/create">Create</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="">Profile</a></li>                    
-                </ul>
+                <?php $this->load->view('common_view.php'); ?>
             </div><div  style="width:80%;float: left;">Content
                 <div class="<?php echo $status;?>"><?php echo $msg;?></div>
                 <form name="e_create_form" id="e_create_form" method="post">
@@ -223,8 +191,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tr><td style="width:20%">Location Details:</td><td  style="width:80%"></td></tr>
                         <tr><td style="width:20%">Address line1:</td><td  style="width:80%"><input type="text" name="e_addressline1" id="e_loc_addressline1"/></td></tr>
                         <tr><td style="width:20%">Address line2:</td><td  style="width:80%"><input type="text" name="e_addressline2" id="e_loc_addressline2"/></td></tr>
-                        <tr><td style="width:20%">City:</td><td  style="width:80%"><input type="text" name="e_city" id="e_loc_city"/></td></tr>
-                        <tr><td style="width:20%">State:</td><td  style="width:80%"><input type="text" name="e_state" id="e_loc_state"/></td></tr>
+                                 <tr><td style="width:20%">State:</td><td  style="width:80%">
+                                <select name="e_loc_state" id="e_loc_state" class="e_loc_state">
+                                    <option value="">Select State..</option>
+                                    <?php foreach($states as $state){ ?>
+                                    <option value="<?php echo $state->id; ?>"><?php echo $state->name; ?></option>
+                                    <?php } ?>
+                                </select></td></tr>
+                        <script>
+                            $("#e_loc_state").change(function(){
+                                url = "<?php echo base_url().'user/get_cities'; ?>";
+                                state_id = $("#e_loc_state").val();
+                                GC.UTIL.getcities(url,state_id);
+                            });
+                                                    </script>
+                        <tr><td style="width:20%">City:</td><td  style="width:80%"><select name="e_loc_city" id="e_loc_city"></select></td></tr>
                         <tr><td style="width:20%">Zip Code:</td><td  style="width:80%"><input type="text" name="e_zipcode" id="e_loc_zipcode"/></td></tr>
                         <tr><td style="width:20%">Blood Donation Status:</td><td  style="width:80%"></td></tr>
                         <tr><td style="width:20%">Willing to Donate Blood:</td><td  style="width:80%"><input type="checkbox" name="e_donation_status" id="e_donation_status" value="1"/></td></tr>
